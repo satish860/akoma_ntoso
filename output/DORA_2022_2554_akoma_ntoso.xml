@@ -1,0 +1,37 @@
+<akomaNtoso xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0">
+  <act name="regulation">
+    <meta>
+  <identification source="#eu">
+    <FRBRWork>
+      <FRBRthis value="/eu/reg/2022-2554"/>
+      <FRBRuri value="/eu/reg/2022-2554"/>
+      <FRBRdate date="2022-12-14" name="enacted"/>
+      <FRBRauthor href="#eu"/>
+      <FRBRcountry value="eu"/>
+      <FRBRnumber value="2022/2554"/>
+      <FRBRname value="Regulation (EU) 2022/2554 of the European Parliament and of the Council of 14 December 2022 on digital operational resilience for the financial sector and amending Regulations (EC) No 1060/2009, (EU) No 648/2012, (EU) No 600/2014, (EU) No 909/2014 and (EU) 2016/1011"/>
+    </FRBRWork>
+    <FRBRExpression>
+      <FRBRthis value="/eu/reg/2022-2554/eng"/>
+      <FRBRuri value="/eu/reg/2022-2554/eng"/>
+      <FRBRdate date="2022-12-14" name="enacted"/>
+      <FRBRauthor href="#eu"/>
+      <FRBRlanguage language="eng"/>
+    </FRBRExpression>
+    <FRBRManifestation>
+      <FRBRthis value="/eu/reg/2022-2554/eng/xml"/>
+      <FRBRuri value="/eu/reg/2022-2554/eng/xml"/>
+      <FRBRdate date="2022-12-27" name="publication"/>
+      <FRBRauthor href="#eu"/>
+      <FRBRformat value="xml"/>
+    </FRBRManifestation>
+  </identification>
+</meta>
+    <preface>
+      <!-- Document preamble will go here -->
+    </preface>
+    <body>
+      <!-- Document chapters, articles will go here -->
+    </body>
+  </act>
+</akomaNtoso>
