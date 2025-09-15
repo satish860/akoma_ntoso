@@ -55,3 +55,4 @@ The parser should handle common legal document patterns:
 - No emoji in code or comments
 - Real environment testing preferred over mocks
 - Current year: 2025, September
+- I like to do small updates as opposed to a large one. To me This project is a ETL where we extract from Act and transform to Akomo Notso. So always remember that.
