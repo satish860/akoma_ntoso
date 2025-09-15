@@ -7,6 +7,8 @@ from src.transform.metadata_extractor import MetadataExtractor
 from src.transform.preamble_identifier import PreambleIdentifier
 from src.transform.recitals_identifier import RecitalsIdentifier
 from src.transform.recitals_builder import build_recitals_xml, get_recitals_summary
+from src.transform.chapter_identifier import ChapterIdentifier
+from src.transform.chapter_builder import build_chapters_xml, get_chapters_summary
 from src.transform.frbr_builder import build_frbr_metadata
 from src.transform.akn_builder import create_akoma_ntoso_root
 
@@ -71,8 +73,25 @@ def main():
         print(f"   Recital numbers: ({recitals_summary['first_number']}) to ({recitals_summary['last_number']})")
         print(f"   Recitals text: {len(recitals_text)} characters\n")
 
-        # Step 5: Transform (T in ETL) - Generate Akoma Ntoso
-        print("5. TRANSFORM: Generating Akoma Ntoso XML...")
+        # Step 5: Transform (T in ETL) - Extract Chapters
+        print("5. TRANSFORM: Extracting chapters structure...")
+        chapter_identifier = ChapterIdentifier()
+        chapters = chapter_identifier.extract_all_chapters_auto(
+            pdf_path,
+            max_workers=3
+        )
+
+        chapters_summary = get_chapters_summary(chapters)
+        chapters_xml = build_chapters_xml(chapters)
+
+        print(f"   Chapters found: {chapters_summary['count']}")
+        print(f"   Chapter range: {chapters_summary['first_chapter']} to {chapters_summary['last_chapter']}")
+        print(f"   Sequence: {' → '.join(chapters_summary['chapter_sequence'])}")
+        print(f"   Avg confidence: {chapters_summary['confidence_avg']}%")
+        print(f"   Line range: {chapters_summary['line_range'][0]} to {chapters_summary['line_range'][1]}\n")
+
+        # Step 6: Transform (T in ETL) - Generate Akoma Ntoso
+        print("6. TRANSFORM: Generating Akoma Ntoso XML...")
 
         # Create root element
         root_xml = create_akoma_ntoso_root()
@@ -82,7 +101,7 @@ def main():
         frbr_xml = build_frbr_metadata(metadata)
         print("   FRBR metadata generated")
 
-        # Combine into complete XML structure with preamble and recitals
+        # Combine into complete XML structure with preamble, recitals, and chapters
         preamble_xml = f'''    <preface>
       <p>{preamble_text.replace('\n', '</p>\n      <p>')}</p>
     </preface>'''
@@ -90,19 +109,20 @@ def main():
         # Use the generated recitals XML (already formatted)
         formatted_recitals_xml = '\n'.join('    ' + line for line in recitals_xml.split('\n') if line.strip())
 
+        # Use the generated chapters XML (already formatted with body tag)
+        formatted_chapters_xml = '\n'.join('    ' + line for line in chapters_xml.split('\n') if line.strip())
+
         complete_xml = f'''<akomaNtoso xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0">
   <act name="{metadata.document_type.replace(' ', '_')}">
     {frbr_xml}
 {preamble_xml}
 {formatted_recitals_xml}
-    <body>
-      <!-- Document chapters, articles will go here -->
-    </body>
+{formatted_chapters_xml}
   </act>
 </akomaNtoso>'''
 
-        # Step 6: Load (L in ETL) - Save XML to file
-        print("6. LOAD: Saving XML output...")
+        # Step 7: Load (L in ETL) - Save XML to file
+        print("7. LOAD: Saving XML output...")
 
         # Create output directory
         import os
@@ -142,6 +162,14 @@ def main():
                     'parsed_count': recitals_summary['count'],
                     'first_number': recitals_summary['first_number'],
                     'last_number': recitals_summary['last_number']
+                },
+                'chapters': {
+                    'count': chapters_summary['count'],
+                    'first_chapter': chapters_summary['first_chapter'],
+                    'last_chapter': chapters_summary['last_chapter'],
+                    'sequence': chapters_summary['chapter_sequence'],
+                    'confidence_avg': chapters_summary['confidence_avg'],
+                    'line_range': chapters_summary['line_range']
                 }
             }, f, indent=2)
 

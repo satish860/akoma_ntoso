@@ -39,3 +39,17 @@ class RecitalsLocation(BaseModel):
     last_recital_number: int = Field(description="Highest recital number e.g., 111")
     confidence: int = Field(ge=0, le=100, description="LLM confidence score")
 
+class ChapterInfo(BaseModel):
+    """Single chapter found in document"""
+    chapter_number: str = Field(description="Roman numeral: I, II, III, IV")
+    title: str = Field(description="Chapter title")
+    start_line: int = Field(description="Line where CHAPTER appears")
+    page_number: int = Field(description="Which page it was found on")
+    confidence: int = Field(ge=0, le=100, description="LLM confidence score")
+
+class ChaptersOnPage(BaseModel):
+    """All chapters found on a single page"""
+    page_number: int = Field(description="Page number")
+    chapters: List[ChapterInfo] = Field(default_factory=list, description="Chapters found on this page")
+    has_chapters: bool = Field(description="Whether any chapters were found")
+
