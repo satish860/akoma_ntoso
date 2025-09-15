@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from datetime import date
 
 class DocumentMetadata(BaseModel):
@@ -20,3 +20,22 @@ class ValidationResult(BaseModel):
     corrections: Dict[str, Any] = Field(default_factory=dict, description="Fields that need correction")
     confidence: int = Field(ge=0, le=100, description="Confidence score 0-100")
     issues: Optional[str] = Field(default=None, description="Description of any issues found")
+
+class PreambleLocation(BaseModel):
+    """Location and content of regulation preamble"""
+    start_line: int = Field(description="Line where REGULATION (EU) appears")
+    end_line: int = Field(description="Last line before Whereas: or (1)")
+    title: str = Field(description="Full title: REGULATION (EU) 2022/2554...")
+    date: str = Field(description="Date from preamble: of 14 December 2022")
+    legal_basis: List[str] = Field(default_factory=list, description="All Having regard to... statements")
+    confidence: int = Field(ge=0, le=100, description="LLM confidence score")
+
+class RecitalsLocation(BaseModel):
+    """Location and content of regulation recitals"""
+    start_line: int = Field(description="Line with Whereas:")
+    end_line: int = Field(description="Line before HAVE ADOPTED THIS REGULATION")
+    recital_count: int = Field(description="Number of recitals found")
+    first_recital_line: int = Field(description="Line where (1) starts")
+    last_recital_number: int = Field(description="Highest recital number e.g., 111")
+    confidence: int = Field(ge=0, le=100, description="LLM confidence score")
+
