@@ -53,3 +53,20 @@ class ChaptersOnPage(BaseModel):
     chapters: List[ChapterInfo] = Field(default_factory=list, description="Chapters found on this page")
     has_chapters: bool = Field(description="Whether any chapters were found")
 
+class ArticleInfo(BaseModel):
+    """Single article found in document"""
+    article_number: int = Field(description="Article number: 1, 2, 3, etc.")
+    title: str = Field(description="Article title")
+    start_line: int = Field(description="Global line number where Article appears")
+    end_line: Optional[int] = Field(default=None, description="Global line number where article ends (next article starts)")
+    parent_chapter: str = Field(description="Parent chapter Roman numeral: I, II, III, etc.")
+    start_page: int = Field(description="Page where article starts")
+    end_page: Optional[int] = Field(default=None, description="Page where article ends")
+    confidence: int = Field(ge=0, le=100, description="LLM confidence score")
+
+class ArticlesOnPage(BaseModel):
+    """All articles found on a single page"""
+    page_number: int = Field(description="Page number")
+    articles: List[ArticleInfo] = Field(default_factory=list, description="Articles found on this page")
+    has_articles: bool = Field(description="Whether any articles were found")
+

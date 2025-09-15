@@ -9,6 +9,8 @@ from src.transform.recitals_identifier import RecitalsIdentifier
 from src.transform.recitals_builder import build_recitals_xml, get_recitals_summary
 from src.transform.chapter_identifier import ChapterIdentifier
 from src.transform.chapter_builder import build_chapters_xml, get_chapters_summary
+from src.transform.article_identifier import ArticleIdentifier
+from src.transform.article_builder import build_chapters_with_articles_xml, get_articles_summary
 from src.transform.frbr_builder import build_frbr_metadata
 from src.transform.akn_builder import create_akoma_ntoso_root
 
@@ -90,8 +92,29 @@ def main():
         print(f"   Avg confidence: {chapters_summary['confidence_avg']}%")
         print(f"   Line range: {chapters_summary['line_range'][0]} to {chapters_summary['line_range'][1]}\n")
 
-        # Step 6: Transform (T in ETL) - Generate Akoma Ntoso
-        print("6. TRANSFORM: Generating Akoma Ntoso XML...")
+        # Step 6: Transform (T in ETL) - Extract Articles
+        print("6. TRANSFORM: Extracting articles structure...")
+        article_identifier = ArticleIdentifier()
+        articles = article_identifier.extract_all_articles_with_chapters_auto(
+            pdf_path,
+            chapters,
+            max_workers=4
+        )
+
+        articles_summary = get_articles_summary(articles)
+
+        print(f"   Articles found: {articles_summary['count']}")
+        print(f"   Chapters with articles: {', '.join(articles_summary['chapters_with_articles'])}")
+        print(f"   Article range: {articles_summary['first_article']} to {articles_summary['last_article']}")
+        print(f"   Avg confidence: {articles_summary['confidence_avg']}%")
+
+        # Show articles by chapter
+        for chapter, stats in articles_summary['articles_by_chapter'].items():
+            print(f"   Chapter {chapter}: {stats['count']} articles ({stats['first_article']}-{stats['last_article']})")
+        print()
+
+        # Step 7: Transform (T in ETL) - Generate Akoma Ntoso
+        print("7. TRANSFORM: Generating Akoma Ntoso XML...")
 
         # Create root element
         root_xml = create_akoma_ntoso_root()
@@ -101,7 +124,7 @@ def main():
         frbr_xml = build_frbr_metadata(metadata)
         print("   FRBR metadata generated")
 
-        # Combine into complete XML structure with preamble, recitals, and chapters
+        # Combine into complete XML structure with preamble, recitals, chapters, and articles
         preamble_xml = f'''    <preface>
       <p>{preamble_text.replace('\n', '</p>\n      <p>')}</p>
     </preface>'''
@@ -109,20 +132,21 @@ def main():
         # Use the generated recitals XML (already formatted)
         formatted_recitals_xml = '\n'.join('    ' + line for line in recitals_xml.split('\n') if line.strip())
 
-        # Use the generated chapters XML (already formatted with body tag)
-        formatted_chapters_xml = '\n'.join('    ' + line for line in chapters_xml.split('\n') if line.strip())
+        # Generate chapters with articles XML
+        chapters_with_articles_xml = build_chapters_with_articles_xml(chapters, articles)
+        formatted_chapters_articles_xml = '\n'.join('    ' + line for line in chapters_with_articles_xml.split('\n') if line.strip())
 
         complete_xml = f'''<akomaNtoso xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0">
   <act name="{metadata.document_type.replace(' ', '_')}">
     {frbr_xml}
 {preamble_xml}
 {formatted_recitals_xml}
-{formatted_chapters_xml}
+{formatted_chapters_articles_xml}
   </act>
 </akomaNtoso>'''
 
-        # Step 7: Load (L in ETL) - Save XML to file
-        print("7. LOAD: Saving XML output...")
+        # Step 8: Load (L in ETL) - Save XML to file
+        print("8. LOAD: Saving XML output...")
 
         # Create output directory
         import os
@@ -170,6 +194,14 @@ def main():
                     'sequence': chapters_summary['chapter_sequence'],
                     'confidence_avg': chapters_summary['confidence_avg'],
                     'line_range': chapters_summary['line_range']
+                },
+                'articles': {
+                    'count': articles_summary['count'],
+                    'chapters_with_articles': articles_summary['chapters_with_articles'],
+                    'first_article': articles_summary['first_article'],
+                    'last_article': articles_summary['last_article'],
+                    'confidence_avg': articles_summary['confidence_avg'],
+                    'articles_by_chapter': articles_summary['articles_by_chapter']
                 }
             }, f, indent=2)
 
@@ -179,9 +211,9 @@ def main():
         print("   [OK] Ready for document body processing\n")
 
         print("=== Next Steps ===")
-        print("- Add recitals extraction")
-        print("- Add document body structure parsing (chapters, articles)")
-        print("- Complete XML generation pipeline")
+        print("- Add article content parsing (paragraphs, subparagraphs)")
+        print("- Add section and subsection extraction")
+        print("- Add cross-reference resolution")
 
     except Exception as e:
         print(f"   Error: {e}")

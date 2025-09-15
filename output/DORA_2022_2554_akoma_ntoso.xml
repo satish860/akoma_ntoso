@@ -165,38 +165,388 @@
           <chapter id="chp_I">
             <num>CHAPTER I</num>
             <heading>General provisions</heading>
+            <article id="art_1">
+              <num>1</num>
+              <heading>Subject matter</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_2">
+              <num>2</num>
+              <heading>Scope</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_3">
+              <num>3</num>
+              <heading>Definitions</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_4">
+              <num>4</num>
+              <heading>Proportionality principle</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
           </chapter>
           <chapter id="chp_II">
             <num>CHAPTER II</num>
             <heading>ICT risk management</heading>
+            <article id="art_5">
+              <num>5</num>
+              <heading>Governance and organisation</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_6">
+              <num>6</num>
+              <heading>ICT risk management framework</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_7">
+              <num>7</num>
+              <heading>ICT systems, protocols and tools</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_8">
+              <num>8</num>
+              <heading>Identification</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_9">
+              <num>9</num>
+              <heading>Protection and prevention</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_10">
+              <num>10</num>
+              <heading>Detection</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_11">
+              <num>11</num>
+              <heading>Response and recovery</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_12">
+              <num>12</num>
+              <heading>Backup policies and procedures, restoration and recovery procedures and methods</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_13">
+              <num>13</num>
+              <heading>Learning and evolving</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_14">
+              <num>14</num>
+              <heading>Communication</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_15">
+              <num>15</num>
+              <heading>Further harmonisation of ICT risk management tools, methods, processes and policies</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_16">
+              <num>16</num>
+              <heading>Simplified ICT risk management framework</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
           </chapter>
           <chapter id="chp_III">
             <num>CHAPTER III</num>
             <heading>ICT-related incident management, classification and reporting</heading>
+            <article id="art_1">
+              <num>1</num>
+              <heading>Article 20 — Reporting obligations</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_2">
+              <num>2</num>
+              <heading>Article 21 — Notification to other competent authorities</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_17">
+              <num>17</num>
+              <heading>ICT-related incident management process</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_18">
+              <num>18</num>
+              <heading>Classification of ICT-related incidents and cyber threats</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_19">
+              <num>19</num>
+              <heading>Reporting of major ICT-related incidents and voluntary notification of significant cyber threats</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_20">
+              <num>20</num>
+              <heading>Harmonisation of reporting content and templates</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_21">
+              <num>21</num>
+              <heading>Centralisation of reporting of major ICT-related incidents</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_22">
+              <num>22</num>
+              <heading>Supervisory feedback</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_23">
+              <num>23</num>
+              <heading>Operational or security payment-related incidents concerning credit institutions, payment institutions, account information service providers, and electronic money institutions</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
           </chapter>
           <chapter id="chp_IV">
             <num>CHAPTER IV</num>
             <heading>Digital operational resilience testing</heading>
+            <article id="art_4">
+              <num>4</num>
+              <heading>Competent authorities shall identify financial entities that are required to perform TLPT taking into account the criteria set out in Article 4(2), based on an assessment of the following:</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_6">
+              <num>6</num>
+              <heading>Credit institutions that are classified as significant in accordance with Article 6(4) of Regulation (EU) No 1024/2013, shall only use external testers in accordance with Article 27(1), points (a) to (e).</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_24">
+              <num>24</num>
+              <heading>General requirements for the performance of digital operational resilience testing</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_25">
+              <num>25</num>
+              <heading>Testing of ICT tools and systems</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_26">
+              <num>26</num>
+              <heading>Advanced testing of ICT tools, systems and processes based on TLPT</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_27">
+              <num>27</num>
+              <heading>When financial entities use internal testers for the purposes of undertaking TLPT, they shall contract external testers every three tests.</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_27">
+              <num>27</num>
+              <heading>Requirements for testers for the carrying out of TLPT</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
           </chapter>
           <chapter id="chp_V">
             <num>CHAPTER V</num>
             <heading>Managing of ICT third-party risk</heading>
+            <article id="art_1">
+              <num>1</num>
+              <heading>Appointment of the Lead Overseer</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_28">
+              <num>28</num>
+              <heading>General principles</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_29">
+              <num>29</num>
+              <heading>Preliminary assessment of ICT concentration risk at entity level</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_30">
+              <num>30</num>
+              <heading>Key contractual provisions</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_31">
+              <num>31</num>
+              <heading>Designation of critical ICT third-party service providers</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_32">
+              <num>32</num>
+              <heading>Structure of the Oversight Framework</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_33">
+              <num>33</num>
+              <heading>Tasks of the Lead Overseer</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_34">
+              <num>34</num>
+              <heading>Operational coordination between Lead Overseers</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_35">
+              <num>35</num>
+              <heading>Powers of the Lead Overseer</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_36">
+              <num>36</num>
+              <heading>Exercise of the powers of the Lead Overseer outside the Union</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_37">
+              <num>37</num>
+              <heading>Request for information</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_38">
+              <num>38</num>
+              <heading>General investigations</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_39">
+              <num>39</num>
+              <heading>Inspections</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_40">
+              <num>40</num>
+              <heading>Ongoing oversight</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_41">
+              <num>41</num>
+              <heading>Harmonisation of conditions enabling the conduct of the oversight activities</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_42">
+              <num>42</num>
+              <heading>Follow-up by competent authorities</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_43">
+              <num>43</num>
+              <heading>Oversight fees</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_44">
+              <num>44</num>
+              <heading>International cooperation</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
           </chapter>
           <chapter id="chp_VI">
             <num>CHAPTER VI</num>
             <heading>Information-sharing arrangements</heading>
+            <article id="art_45">
+              <num>45</num>
+              <heading>Information-sharing arrangements on cyber threat information and intelligence</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
           </chapter>
           <chapter id="chp_VII">
             <num>CHAPTER VII</num>
             <heading>Competent authorities</heading>
+            <article id="art_46">
+              <num>46</num>
+              <heading>Competent authorities</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_47">
+              <num>47</num>
+              <heading>Cooperation with structures and authorities established by Directive (EU) 2022/2555</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_48">
+              <num>48</num>
+              <heading>Cooperation between authorities</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_49">
+              <num>49</num>
+              <heading>Financial cross-sector exercises, communication and cooperation</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_50">
+              <num>50</num>
+              <heading>Administrative penalties and remedial measures</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_51">
+              <num>51</num>
+              <heading>Exercise of the power to impose administrative penalties and remedial measures</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_52">
+              <num>52</num>
+              <heading>Criminal penalties</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_53">
+              <num>53</num>
+              <heading>Notification duties</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_54">
+              <num>54</num>
+              <heading>Publication of administrative penalties</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_55">
+              <num>55</num>
+              <heading>Professional secrecy</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_56">
+              <num>56</num>
+              <heading>Data Protection</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
           </chapter>
           <chapter id="chp_VIII">
             <num>CHAPTER VIII</num>
             <heading>Delegated acts</heading>
+            <article id="art_57">
+              <num>57</num>
+              <heading>Exercise of the delegation</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
           </chapter>
           <chapter id="chp_IX">
             <num>CHAPTER IX</num>
             <heading>Transitional and final provisions</heading>
+            <article id="art_58">
+              <num>58</num>
+              <heading>Review clause</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_59">
+              <num>59</num>
+              <heading>Amendments to Regulation (EC) No 1060/2009</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_60">
+              <num>60</num>
+              <heading>Amendments to Regulation (EU) No 648/2012</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_61">
+              <num>61</num>
+              <heading>Amendments to Regulation (EU) No 909/2014</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_62">
+              <num>62</num>
+              <heading>Amendments to Regulation (EU) No 600/2014</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_63">
+              <num>63</num>
+              <heading>Amendment to Regulation (EU) 2016/1011</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
+            <article id="art_64">
+              <num>64</num>
+              <heading>Entry into force and application</heading>
+              <!-- Article content will be parsed and structured here -->
+            </article>
           </chapter>
         </body>
   </act>
