@@ -1,5 +1,5 @@
 from typing import List
-from .models import ChapterInfo
+from .models import ChapterInfo, SectionInfo
 
 def build_chapters_xml(chapters: List[ChapterInfo]) -> str:
     """
@@ -100,3 +100,64 @@ def validate_chapter_xml(xml_content: str) -> dict:
     )
 
     return validation
+
+def build_chapters_with_sections_xml(chapters: List[ChapterInfo], sections: List[SectionInfo]) -> str:
+    """
+    Build Akoma Ntoso XML structure for chapters with sections nested inside.
+
+    Args:
+        chapters: List of ChapterInfo objects
+        sections: List of SectionInfo objects
+
+    Returns:
+        XML string with proper chapter and section structure
+    """
+    if not chapters:
+        return "    <body>\n      <!-- No chapters found -->\n    </body>"
+
+    # Sort chapters and group sections by chapter
+    sorted_chapters = sorted(chapters, key=lambda ch: ch.start_line)
+    sections_by_chapter = {}
+
+    for section in sections:
+        if section.parent_chapter not in sections_by_chapter:
+            sections_by_chapter[section.parent_chapter] = []
+        sections_by_chapter[section.parent_chapter].append(section)
+
+    # Sort sections within each chapter by start line
+    for chapter_num in sections_by_chapter:
+        sections_by_chapter[chapter_num].sort(key=lambda s: s.start_line)
+
+    xml_parts = ["    <body>"]
+
+    for chapter in sorted_chapters:
+        # Create chapter ID from Roman numeral (e.g., "chp_I", "chp_II")
+        chapter_id = f"chp_{chapter.chapter_number}"
+
+        xml_parts.extend([
+            f'      <chapter id="{chapter_id}">',
+            f'        <num>CHAPTER {chapter.chapter_number}</num>',
+            f'        <heading>{chapter.title}</heading>'
+        ])
+
+        # Add sections if this chapter has any
+        chapter_sections = sections_by_chapter.get(chapter.chapter_number, [])
+
+        if chapter_sections:
+            # Chapter has sections
+            for section in chapter_sections:
+                section_id = f"sec_{chapter.chapter_number}_{section.section_number}"
+                xml_parts.extend([
+                    f'        <section id="{section_id}">',
+                    f'          <num>Section {section.section_number}</num>',
+                    '        </section>'
+                ])
+        else:
+            # Chapter has no sections - add placeholder comment
+            xml_parts.append('        <!-- No sections in this chapter -->')
+
+        xml_parts.append('      </chapter>')
+
+    xml_parts.append("    </body>")
+
+    return '\n'.join(xml_parts)

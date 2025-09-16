@@ -8,7 +8,7 @@ from src.transform.preamble_identifier import PreambleIdentifier
 from src.transform.recitals_identifier import RecitalsIdentifier
 from src.transform.recitals_builder import build_recitals_xml, get_recitals_summary
 from src.transform.chapter_identifier import ChapterIdentifier
-from src.transform.chapter_builder import build_chapters_xml, get_chapters_summary
+from src.transform.chapter_builder import build_chapters_xml, get_chapters_summary, build_chapters_with_sections_xml
 from src.transform.section_identifier import SectionIdentifier
 from src.transform.frbr_builder import build_frbr_metadata
 from src.transform.akn_builder import create_akoma_ntoso_root
@@ -202,9 +202,9 @@ def main():
         # Use the generated recitals XML (already formatted)
         formatted_recitals_xml = '\n'.join('    ' + line for line in recitals_xml.split('\n') if line.strip())
 
-        # Generate chapters XML (without articles)
-        chapters_xml_only = build_chapters_xml(chapters)
-        formatted_chapters_xml = '\n'.join('    ' + line for line in chapters_xml_only.split('\n') if line.strip())
+        # Generate chapters XML with sections
+        chapters_with_sections_xml = build_chapters_with_sections_xml(chapters, sections)
+        formatted_chapters_xml = '\n'.join('    ' + line for line in chapters_with_sections_xml.split('\n') if line.strip())
 
         complete_xml = f'''<akomaNtoso xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0">
   <act name="{metadata.document_type.replace(' ', '_')}">
