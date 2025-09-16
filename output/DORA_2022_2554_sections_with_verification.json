@@ -1,0 +1,91 @@
+{
+  "document": "DORA_2022_2554",
+  "extraction_date": "2025-09-16",
+  "extraction_timestamp": "2025-09-16T17:21:04.015371",
+  "verification_summary": {
+    "accuracy_percentage": 100.0,
+    "total_sections": 6,
+    "successful_verifications": 6,
+    "verification_timestamp": "2025-09-16T17:20:57.297490"
+  },
+  "sections": [
+    {
+      "section_number": "I",
+      "parent_chapter": "II",
+      "start_line": 1263,
+      "confidence": 100,
+      "verification": {
+        "exact_match": true,
+        "confidence": 100.0,
+        "verification_status": "PASS",
+        "issues": [],
+        "header_verified": true
+      }
+    },
+    {
+      "section_number": "II",
+      "parent_chapter": "II",
+      "start_line": 1304,
+      "confidence": 100,
+      "verification": {
+        "exact_match": true,
+        "confidence": 100.0,
+        "verification_status": "PASS",
+        "issues": [],
+        "header_verified": true
+      }
+    },
+    {
+      "section_number": "I",
+      "parent_chapter": "V",
+      "start_line": 2029,
+      "confidence": 100,
+      "verification": {
+        "exact_match": true,
+        "confidence": 100.0,
+        "verification_status": "PASS",
+        "issues": [],
+        "header_verified": true
+      }
+    },
+    {
+      "section_number": "II",
+      "parent_chapter": "V",
+      "start_line": 2234,
+      "confidence": 100,
+      "verification": {
+        "exact_match": true,
+        "confidence": 100.0,
+        "verification_status": "PASS",
+        "issues": [],
+        "header_verified": true
+      }
+    },
+    {
+      "section_number": "I",
+      "parent_chapter": "IX",
+      "start_line": 3047,
+      "confidence": 100,
+      "verification": {
+        "exact_match": true,
+        "confidence": 100.0,
+        "verification_status": "PASS",
+        "issues": [],
+        "header_verified": true
+      }
+    },
+    {
+      "section_number": "II",
+      "parent_chapter": "IX",
+      "start_line": 3084,
+      "confidence": 100,
+      "verification": {
+        "exact_match": true,
+        "confidence": 100.0,
+        "verification_status": "PASS",
+        "issues": [],
+        "header_verified": true
+      }
+    }
+  ]
+}

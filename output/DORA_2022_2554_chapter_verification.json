@@ -1,0 +1,404 @@
+{
+  "verification_metadata": {
+    "component_type": "chapters",
+    "pdf_file": "DORA_Regulation_EU_2022_2554.pdf",
+    "pdf_path": "data/dora/level1/DORA_Regulation_EU_2022_2554.pdf",
+    "total_pdf_lines": 3251,
+    "verification_timestamp": "2025-09-16T17:19:51.003689",
+    "verifier_version": "1.0.0"
+  },
+  "chapters": [
+    {
+      "chapter_number": "I",
+      "title": "General provisions",
+      "reported_start_line": 1005,
+      "reported_page": 23,
+      "confidence_score": 95,
+      "verification_details": {
+        "header_match": {
+          "expected": "CHAPTER I",
+          "found": "CHAPTER I",
+          "exact_match": true,
+          "confidence": 100.0
+        },
+        "title_match": {
+          "expected": "General provisions",
+          "found_at_line": 1006,
+          "found_text": "General provisions",
+          "exact_match": true,
+          "confidence": 100.0
+        }
+      },
+      "pdf_text_at_line": "CHAPTER I",
+      "exact_match": true,
+      "confidence": 100.0,
+      "verification_status": "PASS",
+      "issues": []
+    },
+    {
+      "chapter_number": "II",
+      "title": "ICT risk management",
+      "reported_start_line": 1261,
+      "reported_page": 29,
+      "confidence_score": 100,
+      "verification_details": {
+        "header_match": {
+          "expected": "CHAPTER II",
+          "found": "CHAPTER II",
+          "exact_match": true,
+          "confidence": 100.0
+        },
+        "title_match": {
+          "expected": "ICT risk management",
+          "found_at_line": 1262,
+          "found_text": "ICT risk management",
+          "exact_match": true,
+          "confidence": 100.0
+        }
+      },
+      "pdf_text_at_line": "CHAPTER II",
+      "exact_match": true,
+      "confidence": 100.0,
+      "verification_status": "PASS",
+      "issues": []
+    },
+    {
+      "chapter_number": "III",
+      "title": "ICT-related incident management, classification and reporting",
+      "reported_start_line": 1676,
+      "reported_page": 39,
+      "confidence_score": 100,
+      "verification_details": {
+        "header_match": {
+          "expected": "CHAPTER III",
+          "found": "CHAPTER III",
+          "exact_match": true,
+          "confidence": 100.0
+        },
+        "title_match": {
+          "expected": "ICT-related incident management, classification and reporting",
+          "found_at_line": 1677,
+          "found_text": "ICT-related incident management, classification and reporting",
+          "exact_match": true,
+          "confidence": 100.0
+        }
+      },
+      "pdf_text_at_line": "CHAPTER III",
+      "exact_match": true,
+      "confidence": 100.0,
+      "verification_status": "PASS",
+      "issues": []
+    },
+    {
+      "chapter_number": "IV",
+      "title": "Digital operational resilience testing",
+      "reported_start_line": 1885,
+      "reported_page": 45,
+      "confidence_score": 95,
+      "verification_details": {
+        "header_match": {
+          "expected": "CHAPTER IV",
+          "found": "CHAPTER IV",
+          "exact_match": true,
+          "confidence": 100.0
+        },
+        "title_match": {
+          "expected": "Digital operational resilience testing",
+          "found_at_line": 1886,
+          "found_text": "Digital operational resilience testing",
+          "exact_match": true,
+          "confidence": 100.0
+        }
+      },
+      "pdf_text_at_line": "CHAPTER IV",
+      "exact_match": true,
+      "confidence": 100.0,
+      "verification_status": "PASS",
+      "issues": []
+    },
+    {
+      "chapter_number": "V",
+      "title": "Managing of ICT third-party risk",
+      "reported_start_line": 2027,
+      "reported_page": 48,
+      "confidence_score": 95,
+      "verification_details": {
+        "header_match": {
+          "expected": "CHAPTER V",
+          "found": "CHAPTER V",
+          "exact_match": true,
+          "confidence": 100.0
+        },
+        "title_match": {
+          "expected": "Managing of ICT third-party risk",
+          "found_at_line": 2028,
+          "found_text": "Managing of ICT third-party risk",
+          "exact_match": true,
+          "confidence": 100.0
+        }
+      },
+      "pdf_text_at_line": "CHAPTER V",
+      "exact_match": true,
+      "confidence": 100.0,
+      "verification_status": "PASS",
+      "issues": []
+    },
+    {
+      "chapter_number": "VI",
+      "title": "Information-sharing arrangements",
+      "reported_start_line": 2782,
+      "reported_page": 67,
+      "confidence_score": 95,
+      "verification_details": {
+        "header_match": {
+          "expected": "CHAPTER VI",
+          "found": "CHAPTER VI",
+          "exact_match": true,
+          "confidence": 100.0
+        },
+        "title_match": {
+          "expected": "Information-sharing arrangements",
+          "found_at_line": 2783,
+          "found_text": "Information-sharing arrangements",
+          "exact_match": true,
+          "confidence": 100.0
+        }
+      },
+      "pdf_text_at_line": "CHAPTER VI",
+      "exact_match": true,
+      "confidence": 100.0,
+      "verification_status": "PASS",
+      "issues": []
+    },
+    {
+      "chapter_number": "VII",
+      "title": "Competent authorities",
+      "reported_start_line": 2804,
+      "reported_page": 68,
+      "confidence_score": 95,
+      "verification_details": {
+        "header_match": {
+          "expected": "CHAPTER VII",
+          "found": "CHAPTER VII",
+          "exact_match": true,
+          "confidence": 100.0
+        },
+        "title_match": {
+          "expected": "Competent authorities",
+          "found_at_line": 2805,
+          "found_text": "Competent authorities",
+          "exact_match": true,
+          "confidence": 100.0
+        }
+      },
+      "pdf_text_at_line": "CHAPTER VII",
+      "exact_match": true,
+      "confidence": 100.0,
+      "verification_status": "PASS",
+      "issues": []
+    },
+    {
+      "chapter_number": "VIII",
+      "title": "Delegated acts",
+      "reported_start_line": 3021,
+      "reported_page": 73,
+      "confidence_score": 95,
+      "verification_details": {
+        "header_match": {
+          "expected": "CHAPTER VIII",
+          "found": "CHAPTER VIII",
+          "exact_match": true,
+          "confidence": 100.0
+        },
+        "title_match": {
+          "expected": "Delegated acts",
+          "found_at_line": 3022,
+          "found_text": "Delegated acts",
+          "exact_match": true,
+          "confidence": 100.0
+        }
+      },
+      "pdf_text_at_line": "CHAPTER VIII",
+      "exact_match": true,
+      "confidence": 100.0,
+      "verification_status": "PASS",
+      "issues": []
+    },
+    {
+      "chapter_number": "IX",
+      "title": "Transitional and final provisions",
+      "reported_start_line": 3045,
+      "reported_page": 74,
+      "confidence_score": 95,
+      "verification_details": {
+        "header_match": {
+          "expected": "CHAPTER IX",
+          "found": "CHAPTER IX",
+          "exact_match": true,
+          "confidence": 100.0
+        },
+        "title_match": {
+          "expected": "Transitional and final provisions",
+          "found_at_line": 3046,
+          "found_text": "Transitional and final provisions",
+          "exact_match": true,
+          "confidence": 100.0
+        }
+      },
+      "pdf_text_at_line": "CHAPTER IX",
+      "exact_match": true,
+      "confidence": 100.0,
+      "verification_status": "PASS",
+      "issues": []
+    }
+  ],
+  "accuracy_metrics": {
+    "total_items": 9,
+    "exact_matches": 9,
+    "high_confidence_matches": 9,
+    "medium_confidence_matches": 0,
+    "low_confidence_matches": 0,
+    "accuracy_percentage": 100.0,
+    "average_confidence": 100.0,
+    "confidence_distribution": {
+      "high (95-100%)": 9,
+      "medium (70-94%)": 0,
+      "low (<70%)": 0
+    }
+  },
+  "chapter_analysis": {
+    "total_chapters": 9,
+    "expected_sequence": [
+      "I",
+      "II",
+      "III",
+      "IV",
+      "V",
+      "VI",
+      "VII",
+      "VIII",
+      "IX"
+    ],
+    "actual_sequence": [
+      "I",
+      "II",
+      "III",
+      "IV",
+      "V",
+      "VI",
+      "VII",
+      "VIII",
+      "IX"
+    ],
+    "sequence_correct": true,
+    "line_ordering_correct": true,
+    "line_numbers": [
+      1005,
+      1261,
+      1676,
+      1885,
+      2027,
+      2782,
+      2804,
+      3021,
+      3045
+    ],
+    "gaps_in_sequence": []
+  },
+  "summary": {
+    "total_chapters_verified": 9,
+    "successful_verifications": 9,
+    "failed_verifications": 0,
+    "overall_accuracy": 100.0,
+    "recommendation": "EXCELLENT: Chapter extraction is highly accurate. Safe to proceed."
+  },
+  "boundary_verification": {
+    "boundary_verification": [
+      {
+        "chapter_number": "I",
+        "start_line": 1005,
+        "end_line": 1260,
+        "content_lines": 256,
+        "content_starts_correctly": true,
+        "actual_first_line": "CHAPTER I",
+        "overlap_with_next": false
+      },
+      {
+        "chapter_number": "II",
+        "start_line": 1261,
+        "end_line": 1675,
+        "content_lines": 415,
+        "content_starts_correctly": true,
+        "actual_first_line": "CHAPTER II",
+        "overlap_with_next": false
+      },
+      {
+        "chapter_number": "III",
+        "start_line": 1676,
+        "end_line": 1884,
+        "content_lines": 209,
+        "content_starts_correctly": true,
+        "actual_first_line": "CHAPTER III",
+        "overlap_with_next": false
+      },
+      {
+        "chapter_number": "IV",
+        "start_line": 1885,
+        "end_line": 2026,
+        "content_lines": 142,
+        "content_starts_correctly": true,
+        "actual_first_line": "CHAPTER IV",
+        "overlap_with_next": false
+      },
+      {
+        "chapter_number": "V",
+        "start_line": 2027,
+        "end_line": 2781,
+        "content_lines": 755,
+        "content_starts_correctly": true,
+        "actual_first_line": "CHAPTER V",
+        "overlap_with_next": false
+      },
+      {
+        "chapter_number": "VI",
+        "start_line": 2782,
+        "end_line": 2803,
+        "content_lines": 22,
+        "content_starts_correctly": true,
+        "actual_first_line": "CHAPTER VI",
+        "overlap_with_next": false
+      },
+      {
+        "chapter_number": "VII",
+        "start_line": 2804,
+        "end_line": 3020,
+        "content_lines": 217,
+        "content_starts_correctly": true,
+        "actual_first_line": "CHAPTER VII",
+        "overlap_with_next": false
+      },
+      {
+        "chapter_number": "VIII",
+        "start_line": 3021,
+        "end_line": 3044,
+        "content_lines": 24,
+        "content_starts_correctly": true,
+        "actual_first_line": "CHAPTER VIII",
+        "overlap_with_next": false
+      },
+      {
+        "chapter_number": "IX",
+        "start_line": 3045,
+        "end_line": 999999,
+        "content_lines": 207,
+        "content_starts_correctly": true,
+        "actual_first_line": "CHAPTER IX"
+      }
+    ],
+    "summary": {
+      "total_boundaries_checked": 9,
+      "correct_start_boundaries": 9,
+      "detected_overlaps": 0
+    }
+  }
+}

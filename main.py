@@ -12,6 +12,7 @@ from src.transform.chapter_builder import build_chapters_xml, get_chapters_summa
 from src.transform.section_identifier import SectionIdentifier
 from src.transform.frbr_builder import build_frbr_metadata
 from src.transform.akn_builder import create_akoma_ntoso_root
+from src.transform.verification_integration import VerificationIntegration
 
 def extract_chapters_content(pdf_path: str, chapters: list) -> list:
     """
@@ -166,6 +167,18 @@ def main():
         chapters_with_content = extract_chapters_content(pdf_path, chapters)
         print(f"   Content extracted for {len(chapters_with_content)} chapters")
 
+        # AUTOMATIC VERIFICATION: Verify chapter extraction accuracy
+        print("   Verifying chapter extraction accuracy...")
+        verification_integration = VerificationIntegration(pdf_path, "DORA_2022_2554")
+        verification_report = verification_integration.verify_and_save_chapters(chapters, chapters_with_content)
+
+        # Check if verification passed - stop pipeline if accuracy too low
+        if not verification_integration.should_proceed_with_pipeline(verification_report):
+            print("   Stopping pipeline due to low verification accuracy.")
+            return
+
+        print("   Chapter verification completed successfully!\n")
+
         # Step 5.5: Transform (T in ETL) - Extract Sections
         print("5.5. TRANSFORM: Extracting sections within chapters...")
         section_identifier = SectionIdentifier()
@@ -179,9 +192,20 @@ def main():
                 print(f"   Chapter {chapter}: {', '.join(section_nums)}")
         else:
             print("   No sections found in any chapters")
-        print()
 
+        # AUTOMATIC VERIFICATION: Verify section extraction accuracy (if sections exist)
+        if sections:
+            print("   Verifying section extraction accuracy...")
+            section_verification_report = verification_integration.verify_and_save_sections(sections, chapters)
 
+            # Check if section verification passed
+            if not verification_integration.should_proceed_with_pipeline(section_verification_report):
+                print("   Stopping pipeline due to low section verification accuracy.")
+                return
+
+            print("   Section verification completed successfully!\n")
+        else:
+            print("   No sections to verify.\n")
 
         # Step 6: Transform (T in ETL) - Generate Akoma Ntoso
         print("6. TRANSFORM: Generating Akoma Ntoso XML...")
