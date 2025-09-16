@@ -47,6 +47,13 @@ class ChapterInfo(BaseModel):
     page_number: int = Field(description="Which page it was found on")
     confidence: int = Field(ge=0, le=100, description="LLM confidence score")
 
+class SectionInfo(BaseModel):
+    """Section within a chapter"""
+    section_number: str = Field(description="Roman numeral: I, II, III")
+    parent_chapter: str = Field(description="Which chapter this section belongs to")
+    start_line: int = Field(description="Line where Section appears")
+    confidence: int = Field(ge=0, le=100, description="Confidence score")
+
 class ChaptersOnPage(BaseModel):
     """All chapters found on a single page"""
     page_number: int = Field(description="Page number")
@@ -69,4 +76,30 @@ class ArticlesOnPage(BaseModel):
     page_number: int = Field(description="Page number")
     articles: List[ArticleInfo] = Field(default_factory=list, description="Articles found on this page")
     has_articles: bool = Field(description="Whether any articles were found")
+
+class PointContent(BaseModel):
+    """Single point within a subparagraph"""
+    marker: str = Field(description="Point marker: (i), (ii), (iii), etc.")
+    content: List[str] = Field(default_factory=list, description="Text content lines")
+
+class SubparagraphContent(BaseModel):
+    """Single subparagraph within a paragraph"""
+    marker: str = Field(description="Subparagraph marker: (a), (b), (c), etc.")
+    content: List[str] = Field(default_factory=list, description="Text content lines")
+    points: List[PointContent] = Field(default_factory=list, description="Points within this subparagraph")
+
+class ParagraphContent(BaseModel):
+    """Single paragraph within an article"""
+    num: str = Field(description="Paragraph number: 1, 2, 3, etc.")
+    content: List[str] = Field(default_factory=list, description="Text content lines")
+    subparagraphs: List[SubparagraphContent] = Field(default_factory=list, description="Subparagraphs within this paragraph")
+
+class ArticleContent(BaseModel):
+    """Complete structured content of an article"""
+    article_number: int = Field(description="Article number")
+    title: str = Field(description="Article title")
+    paragraphs: List[ParagraphContent] = Field(default_factory=list, description="Paragraphs within this article")
+    extraction_method: str = Field(description="Method used: regex, llm, or failed")
+    confidence: Optional[int] = Field(default=None, description="LLM confidence score if used")
+    raw_content: Optional[str] = Field(default=None, description="Raw text content for debugging")
 

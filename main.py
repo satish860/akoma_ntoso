@@ -9,6 +9,7 @@ from src.transform.recitals_identifier import RecitalsIdentifier
 from src.transform.recitals_builder import build_recitals_xml, get_recitals_summary
 from src.transform.chapter_identifier import ChapterIdentifier
 from src.transform.chapter_builder import build_chapters_xml, get_chapters_summary
+from src.transform.section_identifier import SectionIdentifier
 from src.transform.frbr_builder import build_frbr_metadata
 from src.transform.akn_builder import create_akoma_ntoso_root
 
@@ -163,7 +164,22 @@ def main():
         # Extract chapter content for inspection
         print("   Extracting chapter content...")
         chapters_with_content = extract_chapters_content(pdf_path, chapters)
-        print(f"   Content extracted for {len(chapters_with_content)} chapters\n")
+        print(f"   Content extracted for {len(chapters_with_content)} chapters")
+
+        # Step 5.5: Transform (T in ETL) - Extract Sections
+        print("5.5. TRANSFORM: Extracting sections within chapters...")
+        section_identifier = SectionIdentifier()
+        sections = section_identifier.extract_sections_within_chapters(pdf_path, chapters)
+        sections_validation = section_identifier.validate_sections(sections)
+
+        print(f"   Sections found: {sections_validation['total_sections']}")
+        if sections_validation['chapters_with_sections']:
+            print(f"   Chapters with sections: {', '.join(sections_validation['chapters_with_sections'])}")
+            for chapter, section_nums in sections_validation['sections_by_chapter'].items():
+                print(f"   Chapter {chapter}: {', '.join(section_nums)}")
+        else:
+            print("   No sections found in any chapters")
+        print()
 
 
 
@@ -227,6 +243,31 @@ def main():
         with open(chapters_json_filename, 'w', encoding='utf-8') as f:
             json.dump(chapters_json_data, f, indent=2, ensure_ascii=False)
 
+        # Save sections as JSON
+        sections_json_data = {
+            "document": f"DORA_{metadata.number.replace('/', '_')}",
+            "extraction_date": datetime.now().strftime("%Y-%m-%d"),
+            "extraction_timestamp": datetime.now().isoformat(),
+            "sections": [
+                {
+                    "section_number": section.section_number,
+                    "parent_chapter": section.parent_chapter,
+                    "start_line": section.start_line,
+                    "confidence": section.confidence
+                }
+                for section in sections
+            ],
+            "summary": {
+                "total_sections": sections_validation['total_sections'],
+                "chapters_with_sections": sections_validation['chapters_with_sections'],
+                "sections_by_chapter": sections_validation['sections_by_chapter']
+            }
+        }
+
+        sections_json_filename = f"output/DORA_{metadata.number.replace('/', '_')}_sections.json"
+        with open(sections_json_filename, 'w', encoding='utf-8') as f:
+            json.dump(sections_json_data, f, indent=2, ensure_ascii=False)
+
         # Save complete XML
         xml_filename = f"output/DORA_{metadata.number.replace('/', '_')}_akoma_ntoso.xml"
         with open(xml_filename, 'w', encoding='utf-8') as f:
@@ -275,6 +316,7 @@ def main():
         print(f"   [OK] Complete XML saved to: {xml_filename}")
         print(f"   [OK] Metadata saved to: {metadata_filename}")
         print(f"   [OK] Chapters with content saved to: {chapters_json_filename}")
+        print(f"   [OK] Sections saved to: {sections_json_filename}")
         print("   [OK] ETL Pipeline Complete!")
         print("   [OK] Ready for article extraction phase\n")
 
