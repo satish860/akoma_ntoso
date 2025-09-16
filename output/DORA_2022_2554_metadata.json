@@ -8,18 +8,18 @@
   "country": "eu",
   "language": "eng",
   "official_journal": "L 333/1",
-  "validation_confidence": 94,
-  "validation_valid": true,
+  "validation_confidence": 95,
+  "validation_valid": false,
   "preamble": {
     "start_line": 5,
     "end_line": 16,
-    "confidence": 98,
+    "confidence": 99,
     "legal_basis_count": 4
   },
   "recitals": {
     "start_line": 17,
     "end_line": 200,
-    "confidence": 90,
+    "confidence": 94,
     "parsed_count": 29,
     "first_number": 1,
     "last_number": 21
@@ -39,162 +39,10 @@
       "VIII",
       "IX"
     ],
-    "confidence_avg": 95,
+    "confidence_avg": 94,
     "line_range": [
       1005,
       3045
     ]
-  },
-  "articles": {
-    "count": 70,
-    "chapters_with_articles": [
-      "I",
-      "II",
-      "III",
-      "IV",
-      "V",
-      "VI",
-      "VII",
-      "VIII",
-      "IX"
-    ],
-    "first_article": 1,
-    "last_article": 64,
-    "confidence_avg": 88,
-    "articles_by_chapter": {
-      "I": {
-        "count": 4,
-        "first_article": 1,
-        "last_article": 4,
-        "article_numbers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      "II": {
-        "count": 12,
-        "first_article": 5,
-        "last_article": 16,
-        "article_numbers": [
-          5,
-          6,
-          7,
-          8,
-          9,
-          10,
-          11,
-          12,
-          13,
-          14,
-          15,
-          16
-        ]
-      },
-      "III": {
-        "count": 9,
-        "first_article": 1,
-        "last_article": 23,
-        "article_numbers": [
-          1,
-          2,
-          17,
-          18,
-          19,
-          20,
-          21,
-          22,
-          23
-        ]
-      },
-      "IV": {
-        "count": 7,
-        "first_article": 4,
-        "last_article": 27,
-        "article_numbers": [
-          4,
-          6,
-          24,
-          25,
-          26,
-          27,
-          27
-        ]
-      },
-      "V": {
-        "count": 18,
-        "first_article": 1,
-        "last_article": 44,
-        "article_numbers": [
-          1,
-          28,
-          29,
-          30,
-          31,
-          32,
-          33,
-          34,
-          35,
-          36,
-          37,
-          38,
-          39,
-          40,
-          41,
-          42,
-          43,
-          44
-        ]
-      },
-      "VI": {
-        "count": 1,
-        "first_article": 45,
-        "last_article": 45,
-        "article_numbers": [
-          45
-        ]
-      },
-      "VII": {
-        "count": 11,
-        "first_article": 46,
-        "last_article": 56,
-        "article_numbers": [
-          46,
-          47,
-          48,
-          49,
-          50,
-          51,
-          52,
-          53,
-          54,
-          55,
-          56
-        ]
-      },
-      "VIII": {
-        "count": 1,
-        "first_article": 57,
-        "last_article": 57,
-        "article_numbers": [
-          57
-        ]
-      },
-      "IX": {
-        "count": 7,
-        "first_article": 58,
-        "last_article": 64,
-        "article_numbers": [
-          58,
-          59,
-          60,
-          61,
-          62,
-          63,
-          64
-        ]
-      }
-    }
   }
 }

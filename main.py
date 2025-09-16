@@ -318,12 +318,6 @@ def main():
         print(f"   [OK] Chapters with content saved to: {chapters_json_filename}")
         print(f"   [OK] Sections saved to: {sections_json_filename}")
         print("   [OK] ETL Pipeline Complete!")
-        print("   [OK] Ready for article extraction phase\n")
-
-        print("=== Next Steps ===")
-        print("- Add article extraction within chapters")
-        print("- Add article content parsing (paragraphs, subparagraphs, points)")
-        print("- Add cross-reference resolution")
 
     except Exception as e:
         print(f"   Error: {e}")
