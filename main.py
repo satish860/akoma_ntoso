@@ -9,10 +9,78 @@ from src.transform.recitals_identifier import RecitalsIdentifier
 from src.transform.recitals_builder import build_recitals_xml, get_recitals_summary
 from src.transform.chapter_identifier import ChapterIdentifier
 from src.transform.chapter_builder import build_chapters_xml, get_chapters_summary
-from src.transform.article_identifier import ArticleIdentifier
-from src.transform.article_builder import build_chapters_with_articles_xml, get_articles_summary
 from src.transform.frbr_builder import build_frbr_metadata
 from src.transform.akn_builder import create_akoma_ntoso_root
+
+def extract_chapters_content(pdf_path: str, chapters: list) -> list:
+    """
+    Extract content for each chapter with boundaries and statistics.
+
+    Args:
+        pdf_path: Path to PDF file
+        chapters: List of ChapterInfo objects
+
+    Returns:
+        List of chapters with content and statistics
+    """
+    if not chapters:
+        return []
+
+    # Sort chapters by start_line to ensure proper order
+    sorted_chapters = sorted(chapters, key=lambda ch: ch.start_line)
+
+    chapters_with_content = []
+
+    for i, chapter in enumerate(sorted_chapters):
+        # Determine end line for this chapter
+        if i < len(sorted_chapters) - 1:
+            # End line is just before next chapter starts
+            end_line = sorted_chapters[i + 1].start_line - 1
+        else:
+            # For last chapter, we need to determine document end
+            # For now, use a large number that will capture everything
+            end_line = 999999
+
+        # Extract content for this chapter
+        try:
+            content = extract_lines_range(pdf_path, chapter.start_line, end_line)
+
+            # Calculate statistics
+            word_count = len(content.split()) if content else 0
+            line_count = len(content.split('\n')) if content else 0
+
+            chapter_with_content = {
+                "chapter_number": chapter.chapter_number,
+                "title": chapter.title,
+                "start_line": chapter.start_line,
+                "end_line": end_line,
+                "page_number": chapter.page_number,
+                "confidence": chapter.confidence,
+                "content": content,
+                "word_count": word_count,
+                "line_count": line_count
+            }
+
+            chapters_with_content.append(chapter_with_content)
+
+        except Exception as e:
+            print(f"     Error extracting content for Chapter {chapter.chapter_number}: {e}")
+            # Add chapter without content
+            chapter_with_content = {
+                "chapter_number": chapter.chapter_number,
+                "title": chapter.title,
+                "start_line": chapter.start_line,
+                "end_line": end_line,
+                "page_number": chapter.page_number,
+                "confidence": chapter.confidence,
+                "content": "",
+                "word_count": 0,
+                "line_count": 0,
+                "error": str(e)
+            }
+            chapters_with_content.append(chapter_with_content)
+
+    return chapters_with_content
 
 def main():
     print("=== Akoma Ntoso ETL Pipeline Demo ===\n")
@@ -92,29 +160,15 @@ def main():
         print(f"   Avg confidence: {chapters_summary['confidence_avg']}%")
         print(f"   Line range: {chapters_summary['line_range'][0]} to {chapters_summary['line_range'][1]}\n")
 
-        # Step 6: Transform (T in ETL) - Extract Articles
-        print("6. TRANSFORM: Extracting articles structure...")
-        article_identifier = ArticleIdentifier()
-        articles = article_identifier.extract_all_articles_with_chapters_auto(
-            pdf_path,
-            chapters,
-            max_workers=4
-        )
+        # Extract chapter content for inspection
+        print("   Extracting chapter content...")
+        chapters_with_content = extract_chapters_content(pdf_path, chapters)
+        print(f"   Content extracted for {len(chapters_with_content)} chapters\n")
 
-        articles_summary = get_articles_summary(articles)
 
-        print(f"   Articles found: {articles_summary['count']}")
-        print(f"   Chapters with articles: {', '.join(articles_summary['chapters_with_articles'])}")
-        print(f"   Article range: {articles_summary['first_article']} to {articles_summary['last_article']}")
-        print(f"   Avg confidence: {articles_summary['confidence_avg']}%")
 
-        # Show articles by chapter
-        for chapter, stats in articles_summary['articles_by_chapter'].items():
-            print(f"   Chapter {chapter}: {stats['count']} articles ({stats['first_article']}-{stats['last_article']})")
-        print()
-
-        # Step 7: Transform (T in ETL) - Generate Akoma Ntoso
-        print("7. TRANSFORM: Generating Akoma Ntoso XML...")
+        # Step 6: Transform (T in ETL) - Generate Akoma Ntoso
+        print("6. TRANSFORM: Generating Akoma Ntoso XML...")
 
         # Create root element
         root_xml = create_akoma_ntoso_root()
@@ -124,7 +178,7 @@ def main():
         frbr_xml = build_frbr_metadata(metadata)
         print("   FRBR metadata generated")
 
-        # Combine into complete XML structure with preamble, recitals, chapters, and articles
+        # Combine into complete XML structure with preamble, recitals, and chapters
         preamble_xml = f'''    <preface>
       <p>{preamble_text.replace('\n', '</p>\n      <p>')}</p>
     </preface>'''
@@ -132,25 +186,46 @@ def main():
         # Use the generated recitals XML (already formatted)
         formatted_recitals_xml = '\n'.join('    ' + line for line in recitals_xml.split('\n') if line.strip())
 
-        # Generate chapters with articles XML
-        chapters_with_articles_xml = build_chapters_with_articles_xml(chapters, articles)
-        formatted_chapters_articles_xml = '\n'.join('    ' + line for line in chapters_with_articles_xml.split('\n') if line.strip())
+        # Generate chapters XML (without articles)
+        chapters_xml_only = build_chapters_xml(chapters)
+        formatted_chapters_xml = '\n'.join('    ' + line for line in chapters_xml_only.split('\n') if line.strip())
 
         complete_xml = f'''<akomaNtoso xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0">
   <act name="{metadata.document_type.replace(' ', '_')}">
     {frbr_xml}
 {preamble_xml}
 {formatted_recitals_xml}
-{formatted_chapters_articles_xml}
+{formatted_chapters_xml}
   </act>
 </akomaNtoso>'''
 
-        # Step 8: Load (L in ETL) - Save XML to file
-        print("8. LOAD: Saving XML output...")
+        # Step 7: Load (L in ETL) - Save XML to file
+        print("7. LOAD: Saving XML output...")
 
         # Create output directory
         import os
+        import json
+        from datetime import datetime
         os.makedirs("output", exist_ok=True)
+
+        # Save chapters with content as JSON
+        chapters_json_data = {
+            "document": f"DORA_{metadata.number.replace('/', '_')}",
+            "extraction_date": datetime.now().strftime("%Y-%m-%d"),
+            "extraction_timestamp": datetime.now().isoformat(),
+            "chapters": chapters_with_content,
+            "summary": {
+                "total_chapters": len(chapters_with_content),
+                "total_lines": sum(ch.get('line_count', 0) for ch in chapters_with_content),
+                "total_words": sum(ch.get('word_count', 0) for ch in chapters_with_content),
+                "chapters_with_content": len([ch for ch in chapters_with_content if ch.get('content', '').strip()]),
+                "chapters_with_errors": len([ch for ch in chapters_with_content if 'error' in ch])
+            }
+        }
+
+        chapters_json_filename = f"output/DORA_{metadata.number.replace('/', '_')}_chapters_with_content.json"
+        with open(chapters_json_filename, 'w', encoding='utf-8') as f:
+            json.dump(chapters_json_data, f, indent=2, ensure_ascii=False)
 
         # Save complete XML
         xml_filename = f"output/DORA_{metadata.number.replace('/', '_')}_akoma_ntoso.xml"
@@ -194,25 +269,18 @@ def main():
                     'sequence': chapters_summary['chapter_sequence'],
                     'confidence_avg': chapters_summary['confidence_avg'],
                     'line_range': chapters_summary['line_range']
-                },
-                'articles': {
-                    'count': articles_summary['count'],
-                    'chapters_with_articles': articles_summary['chapters_with_articles'],
-                    'first_article': articles_summary['first_article'],
-                    'last_article': articles_summary['last_article'],
-                    'confidence_avg': articles_summary['confidence_avg'],
-                    'articles_by_chapter': articles_summary['articles_by_chapter']
                 }
             }, f, indent=2)
 
         print(f"   [OK] Complete XML saved to: {xml_filename}")
         print(f"   [OK] Metadata saved to: {metadata_filename}")
+        print(f"   [OK] Chapters with content saved to: {chapters_json_filename}")
         print("   [OK] ETL Pipeline Complete!")
-        print("   [OK] Ready for document body processing\n")
+        print("   [OK] Ready for article extraction phase\n")
 
         print("=== Next Steps ===")
-        print("- Add article content parsing (paragraphs, subparagraphs)")
-        print("- Add section and subsection extraction")
+        print("- Add article extraction within chapters")
+        print("- Add article content parsing (paragraphs, subparagraphs, points)")
         print("- Add cross-reference resolution")
 
     except Exception as e:
