@@ -1,0 +1,991 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<akomaNtoso xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0">
+  <act name="dora_regulation">
+    <meta>
+      <identification source="#eu">
+        <FRBRWork>
+          <FRBRthis value="/eu/reg/2022/2554/main"/>
+          <FRBRuri value="/eu/reg/2022/2554"/>
+          <FRBRdate date="2022-12-14" name="enactment"/>
+          <FRBRauthor href="#eu"/>
+          <FRBRcountry value="eu"/>
+        </FRBRWork>
+      </identification>
+    </meta>
+    <body>
+      <chapter id="chp_I">
+        <num>CHAPTER I</num>
+        <heading>General provisions</heading>
+        <article id="art_1">
+          <num>1</num>
+          <heading>Subject matter</heading>
+          <paragraph id="art_1_par_1">
+            <num>1</num>
+            <content>
+              <p>In order to achieve a high common level of digital operational resilience, this Regulation lays down uniform
+          requirements concerning the security of network and information systems supporting the business processes of financial
+          entities as follows:
+          (a) requirements applicable to financial entities in relation to:
+          (i) information and communication technology (ICT) risk management;
+          (ii) reporting of major ICT-related incidents and notifying, on a voluntary basis, significant cyber threats to the
+          c...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_2">
+          <num>2</num>
+          <heading>Scope</heading>
+          <paragraph id="art_2_par_1">
+            <num>1</num>
+            <content>
+              <p>Without prejudice to paragraphs 3 and 4, this Regulation applies to the following entities:
+          (a) credit institutions;
+          (b) payment institutions, including payment institutions exempted pursuant to Directive (EU) 2015/2366;
+          (c) account information service providers;
+          (d) electronic money institutions, including electronic money institutions exempted pursuant to Directive 2009/110/EC;
+          (e) investment firms;
+          (f) crypto-asset service providers as authorised under a Regulation of the European Parliament ...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_3">
+          <num>3</num>
+          <heading>Definitions</heading>
+          <paragraph id="art_3_par_1">
+            <content>
+              <p>For the purposes of this Regulation, the following definitions shall apply:
+          (1) ‘digital operational resilience’ means the ability of a financial entity to build, assure and review its operational integrity
+          and reliability by ensuring, either directly or indirectly through the use of services provided by ICT third-party service
+          providers, the full range of ICT-related capabilities needed to address the security of the network and information
+          systems which a financial entity uses, and which suppo...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_4">
+          <num>4</num>
+          <heading>Proportionality principle</heading>
+          <paragraph id="art_4_par_1">
+            <num>1</num>
+            <content>
+              <p>Financial entities shall implement the rules laid down in Chapter II in accordance with the principle of
+          proportionality, taking into account their size and overall risk profile, and the nature, scale and complexity of their
+          services, activities and operations.
+          2. In addition, the application by financial entities of Chapters III, IV and V, Section I, shall be proportionate to their size
+          and overall risk profile, and to the nature, scale and complexity of their services, activities and operation...</p>
+            </content>
+          </paragraph>
+        </article>
+      </chapter>
+      <chapter id="chp_II">
+        <num>CHAPTER II</num>
+        <heading>ICT risk management</heading>
+        <section id="sec_II_I">
+          <num>Section I</num>
+          <article id="art_5">
+            <num>5</num>
+            <heading>Governance and organisation</heading>
+            <paragraph id="art_5_par_1">
+              <num>1</num>
+              <content>
+                <p>Financial entities shall have in place an internal governance and control framework that ensures an effective and
+            prudent management of ICT risk, in accordance with Article 6(4), in order to achieve a high level of digital operational
+            resilience.
+            2. The management body of the financial entity shall define, approve, oversee and be responsible for the
+            implementation of all arrangements related to the ICT risk management framework referred to in Article 6(1).
+            For the purposes of the first subparagr...</p>
+              </content>
+            </paragraph>
+          </article>
+        </section>
+        <section id="sec_II_II">
+          <num>Section II</num>
+          <article id="art_6">
+            <num>6</num>
+            <heading>ICT risk management framework</heading>
+            <paragraph id="art_6_par_1">
+              <num>1</num>
+              <content>
+                <p>Financial entities shall have a sound, comprehensive and well-documented ICT risk management framework as part
+            of their overall risk management system, which enables them to address ICT risk quickly, efficiently and comprehensively
+            and to ensure a high level of digital operational resilience.
+            2. The ICT risk management framework shall include at least strategies, policies, procedures, ICT protocols and tools
+            that are necessary to duly and adequately protect all information assets and ICT assets,...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_7">
+            <num>7</num>
+            <heading>ICT systems, protocols and tools</heading>
+            <paragraph id="art_7_par_1">
+              <content>
+                <p>In order to address and manage ICT risk, financial entities shall use and maintain updated ICT systems, protocols and tools
+            that are:
+            (a) appropriate to the magnitude of operations supporting the conduct of their activities, in accordance with the
+            proportionality principle as referred to in Article 4;
+            (b) reliable;
+            (c) equipped with sufficient capacity to accurately process the data necessary for the performance of activities and the
+            timely provision of services, and to deal with peak orders, me...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_8">
+            <num>8</num>
+            <heading>Identification</heading>
+            <paragraph id="art_8_par_1">
+              <num>1</num>
+              <content>
+                <p>As part of the ICT risk management framework referred to in Article 6(1), financial entities shall identify, classify and
+            adequately document all ICT supported business functions, roles and responsibilities, the information assets and ICT assets
+            supporting those functions, and their roles and dependencies in relation to ICT risk. Financial entities shall review as
+            needed, and at least yearly, the adequacy of this classification and of any relevant documentation.
+            2. Financial entities shall, on a...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_9">
+            <num>9</num>
+            <heading>Protection and prevention</heading>
+            <paragraph id="art_9_par_1">
+              <num>1</num>
+              <content>
+                <p>For the purposes of adequately protecting ICT systems and with a view to organising response measures, financial
+            entities shall continuously monitor and control the security and functioning of ICT systems and tools and shall minimise
+            the impact of ICT risk on ICT systems through the deployment of appropriate ICT security tools, policies and procedures.
+            2. Financial entities shall design, procure and implement ICT security policies, procedures, protocols and tools that aim
+            to ensure the resilienc...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_10">
+            <num>10</num>
+            <heading>Detection</heading>
+            <paragraph id="art_10_par_1">
+              <num>1</num>
+              <content>
+                <p>Financial entities shall have in place mechanisms to promptly detect anomalous activities, in accordance with
+            Article 17, including ICT network performance issues and ICT-related incidents, and to identify potential material single
+            points of failure.
+            All detection mechanisms referred to in the first subparagraph shall be regularly tested in accordance with Article 25.
+            2. The detection mechanisms referred to in paragraph 1 shall enable multiple layers of control, define alert thresholds
+            and crite...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_11">
+            <num>11</num>
+            <heading>Response and recovery</heading>
+            <paragraph id="art_11_par_1">
+              <num>1</num>
+              <content>
+                <p>As part of the ICT risk management framework referred to in Article 6(1) and based on the identification
+            requirements set out in Article 8, financial entities shall put in place a comprehensive ICT business continuity policy,
+            which may be adopted as a dedicated specific policy, forming an integral part of the overall business continuity policy of
+            the financial entity.
+            2. Financial entities shall implement the ICT business continuity policy through dedicated, appropriate and documented
+            arrangemen...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_12">
+            <num>12</num>
+            <heading>Backup policies and procedures, restoration and recovery procedures and methods</heading>
+            <paragraph id="art_12_par_1">
+              <num>1</num>
+              <content>
+                <p>For the purpose of ensuring the restoration of ICT systems and data with minimum downtime, limited disruption and
+            loss, as part of their ICT risk management framework, financial entities shall develop and document:
+            (a) backup policies and procedures specifying the scope of the data that is subject to the backup and the minimum
+            frequency of the backup, based on the criticality of information or the confidentiality level of the data;
+            (b) restoration and recovery procedures and methods.
+            2. Financia...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_13">
+            <num>13</num>
+            <heading>Learning and evolving</heading>
+            <paragraph id="art_13_par_1">
+              <num>1</num>
+              <content>
+                <p>Financial entities shall have in place capabilities and staff to gather information on vulnerabilities and cyber threats,
+            ICT-related incidents, in particular cyber-attacks, and analyse the impact they are likely to have on their digital operational
+            resilience.
+            2. Financial entities shall put in place post ICT-related incident reviews after a major ICT-related incident disrupts their
+            core activities, analysing the causes of disruption and identifying required improvements to the ICT operations o...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_14">
+            <num>14</num>
+            <heading>Communication</heading>
+            <paragraph id="art_14_par_1">
+              <num>1</num>
+              <content>
+                <p>As part of the ICT risk management framework referred to in Article 6(1), financial entities shall have in place crisis
+            communication plans enabling a responsible disclosure of, at least, major ICT-related incidents or vulnerabilities to clients
+            and counterparts as well as to the public, as appropriate.
+            2. As part of the ICT risk management framework, financial entities shall implement communication policies for
+            internal staff and for external stakeholders. Communication policies for staff shall...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_15">
+            <num>15</num>
+            <heading>Further harmonisation of ICT risk management tools, methods, processes and policies</heading>
+            <paragraph id="art_15_par_1">
+              <content>
+                <p>The ESAs shall, through the Joint Committee, in consultation with the European Union Agency on Cybersecurity (ENISA),
+            develop common draft regulatory technical standards in order to:
+            (a) specify further elements to be included in the ICT security policies, procedures, protocols and tools referred to in
+            Article 9(2), with a view to ensuring the security of networks, enable adequate safeguards against intrusions and data
+            misuse, preserve the availability, authenticity, integrity and confidentialit...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_16">
+            <num>16</num>
+            <heading>Simplified ICT risk management framework</heading>
+            <paragraph id="art_16_par_1">
+              <num>1</num>
+              <content>
+                <p>Articles 5 to 15 of this Regulation shall not apply to small and non-interconnected investment firms, payment
+            institutions exempted pursuant to Directive (EU) 2015/2366; institutions exempted pursuant to Directive 2013/36/EU in
+            respect of which Member States have decided not to apply the option referred to in Article 2(4) of this Regulation;
+            electronic money institutions exempted pursuant to Directive 2009/110/EC; and small institutions for occupational
+            retirement provision.
+            Without prejudice to...</p>
+              </content>
+            </paragraph>
+          </article>
+        </section>
+      </chapter>
+      <chapter id="chp_III">
+        <num>CHAPTER III</num>
+        <heading>ICT-related incident management, classification and reporting</heading>
+        <article id="art_17">
+          <num>17</num>
+          <heading>ICT-related incident management process</heading>
+          <paragraph id="art_17_par_1">
+            <num>1</num>
+            <content>
+              <p>Financial entities shall define, establish and implement an ICT-related incident management process to detect, manage
+          and notify ICT-related incidents.
+          2. Financial entities shall record all ICT-related incidents and significant cyber threats. Financial entities shall establish
+          appropriate procedures and processes to ensure a consistent and integrated monitoring, handling and follow-up of ICT-
+          related incidents, to ensure that root causes are identified, documented and addressed in order to prev...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_18">
+          <num>18</num>
+          <heading>Classification of ICT-related incidents and cyber threats</heading>
+          <paragraph id="art_18_par_1">
+            <num>1</num>
+            <content>
+              <p>Financial entities shall classify ICT-related incidents and shall determine their impact based on the following criteria:
+          (a) the number and/or relevance of clients or financial counterparts affected and, where applicable, the amount or number
+          of transactions affected by the ICT-related incident, and whether the ICT-related incident has caused reputational
+          impact;
+          (b) the duration of the ICT-related incident, including the service downtime;
+          (c) the geographical spread with regard to the areas af...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_19">
+          <num>19</num>
+          <heading>Reporting of major ICT-related incidents and voluntary notification of significant cyber threats</heading>
+          <paragraph id="art_19_par_1">
+            <num>1</num>
+            <content>
+              <p>Financial entities shall report major ICT-related incidents to the relevant competent authority as referred to in
+          Article 46 in accordance with paragraph 4 of this Article.
+          Where a financial entity is subject to supervision by more than one national competent authority referred to in Article 46,
+          Member States shall designate a single competent authority as the relevant competent authority responsible for carrying out
+          the functions and duties provided for in this Article.
+          Credit institutions clas...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_20">
+          <num>20</num>
+          <heading>Harmonisation of reporting content and templates</heading>
+          <paragraph id="art_20_par_1">
+            <content>
+              <p>The ESAs, through the Joint Committee, and in consultation with ENISA and the ECB, shall develop:
+          (a) common draft regulatory technical standards in order to:
+          (i) establish the content of the reports for major ICT-related incidents in order to reflect the criteria laid down in
+          Article 18(1) and incorporate further elements, such as details for establishing the relevance of the reporting for
+          other Member States and whether it constitutes a major operational or security payment-related incident or...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_21">
+          <num>21</num>
+          <heading>Centralisation of reporting of major ICT-related incidents</heading>
+          <paragraph id="art_21_par_1">
+            <num>1</num>
+            <content>
+              <p>The ESAs, through the Joint Committee, and in consultation with the ECB and ENISA, shall prepare a joint report
+          assessing the feasibility of further centralisation of incident reporting through the establishment of a single EU Hub for
+          major ICT-related incident reporting by financial entities. The joint report shall explore ways to facilitate the flow of ICT-
+          related incident reporting, reduce associated costs and underpin thematic analyses with a view to enhancing supervisory
+          convergence.
+          L 333...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_22">
+          <num>22</num>
+          <heading>Supervisory feedback</heading>
+          <paragraph id="art_22_par_1">
+            <num>1</num>
+            <content>
+              <p>Without prejudice to the technical input, advice or remedies and subsequent follow-up which may be provided,
+          where applicable, in accordance with national law, by the CSIRTs under Directive (EU) 2022/2555, the competent
+          authority shall, upon receipt of the initial notification and of each report as referred to in Article 19(4), acknowledge
+          receipt and may, where feasible, provide in a timely manner relevant and proportionate feedback or high-level guidance to
+          the financial entity, in particular ...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_23">
+          <num>23</num>
+          <heading>Operational or security payment-related incidents concerning credit institutions, payment institutions, account information service providers, and electronic money institutions</heading>
+          <paragraph id="art_23_par_1">
+            <content>
+              <p>Operational or security payment-related incidents concerning credit institutions, payment institutions, account
+          information service providers, and electronic money institutions
+          The requirements laid down in this Chapter shall also apply to operational or security payment-related incidents and to
+          major operational or security payment-related incidents, where they concern credit institutions, payment institutions,
+          account information service providers, and electronic money institutions.
+          27.12.2022...</p>
+            </content>
+          </paragraph>
+        </article>
+      </chapter>
+      <chapter id="chp_IV">
+        <num>CHAPTER IV</num>
+        <heading>Digital operational resilience testing</heading>
+        <article id="art_24">
+          <num>24</num>
+          <heading>General requirements for the performance of digital operational resilience testing</heading>
+          <paragraph id="art_24_par_1">
+            <num>1</num>
+            <content>
+              <p>For the purpose of assessing preparedness for handling ICT-related incidents, of identifying weaknesses, deficiencies
+          and gaps in digital operational resilience, and of promptly implementing corrective measures, financial entities, other than
+          microenterprises, shall, taking into account the criteria set out in Article 4(2), establish, maintain and review a sound and
+          comprehensive digital operational resilience testing programme as an integral part of the ICT risk-management framework
+          referred to...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_25">
+          <num>25</num>
+          <heading>Testing of ICT tools and systems</heading>
+          <paragraph id="art_25_par_1">
+            <num>1</num>
+            <content>
+              <p>The digital operational resilience testing programme referred to in Article 24 shall provide, in accordance with the
+          criteria set out in Article 4(2), for the execution of appropriate tests, such as vulnerability assessments and scans, open
+          source analyses, network security assessments, gap analyses, physical security reviews, questionnaires and scanning
+          software solutions, source code reviews where feasible, scenario-based tests, compatibility testing, performance testing,
+          end-to-end testing an...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_26">
+          <num>26</num>
+          <heading>Advanced testing of ICT tools, systems and processes based on TLPT</heading>
+          <paragraph id="art_26_par_1">
+            <num>1</num>
+            <content>
+              <p>Financial entities, other than entities referred to in Article 16(1), first subparagraph, and other than microenterprises,
+          which are identified in accordance with paragraph 8, third subparagraph, of this Article, shall carry out at least every 3
+          years advanced testing by means of TLPT. Based on the risk profile of the financial entity and taking into account
+          operational circumstances, the competent authority may, where necessary, request the financial entity to reduce or
+          increase this frequency....</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_27">
+          <num>27</num>
+          <heading>Requirements for testers for the carrying out of TLPT</heading>
+          <paragraph id="art_27_par_1">
+            <num>1</num>
+            <content>
+              <p>Financial entities shall only use testers for the carrying out of TLPT, that:
+          (a) are of the highest suitability and reputability;
+          (b) possess technical and organisational capabilities and demonstrate specific expertise in threat intelligence, penetration
+          testing and red team testing;
+          (c) are certified by an accreditation body in a Member State or adhere to formal codes of conduct or ethical frameworks;
+          (d) provide an independent assurance, or an audit report, in relation to the sound management...</p>
+            </content>
+          </paragraph>
+        </article>
+      </chapter>
+      <chapter id="chp_V">
+        <num>CHAPTER V</num>
+        <heading>Managing of ICT third-party risk</heading>
+        <section id="sec_V_I">
+          <num>Section I</num>
+          <article id="art_28">
+            <num>28</num>
+            <heading>General principles</heading>
+            <paragraph id="art_28_par_1">
+              <num>1</num>
+              <content>
+                <p>Financial entities shall manage ICT third-party risk as an integral component of ICT risk within their ICT risk
+            management framework as referred to in Article 6(1), and in accordance with the following principles:
+            (a) financial entities that have in place contractual arrangements for the use of ICT services to run their business operations
+            shall, at all times, remain fully responsible for compliance with, and the discharge of, all obligations under this
+            Regulation and applicable financial servic...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_29">
+            <num>29</num>
+            <heading>Preliminary assessment of ICT concentration risk at entity level</heading>
+            <paragraph id="art_29_par_1">
+              <num>1</num>
+              <content>
+                <p>When performing the identification and assessment of risks referred to in Article 28(4), point (c), financial entities
+            shall also take into account whether the envisaged conclusion of a contractual arrangement in relation to ICT services
+            supporting critical or important functions would lead to any of the following:
+            (a) contracting an ICT third-party service provider that is not easily substitutable; or
+            (b) having in place multiple contractual arrangements in relation to the provision of ICT serv...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_30">
+            <num>30</num>
+            <heading>Key contractual provisions</heading>
+            <paragraph id="art_30_par_1">
+              <num>1</num>
+              <content>
+                <p>The rights and obligations of the financial entity and of the ICT third-party service provider shall be clearly allocated
+            and set out in writing. The full contract shall include the service level agreements and be documented in one written
+            document which shall be available to the parties on paper, or in a document with another downloadable, durable and
+            accessible format.
+            2. The contractual arrangements on the use of ICT services shall include at least the following elements:
+            (a) a clear and comp...</p>
+              </content>
+            </paragraph>
+          </article>
+        </section>
+        <section id="sec_V_II">
+          <num>Section II</num>
+          <article id="art_31">
+            <num>31</num>
+            <heading>Designation of critical ICT third-party service providers</heading>
+            <paragraph id="art_31_par_1">
+              <num>1</num>
+              <content>
+                <p>The ESAs, through the Joint Committee and upon recommendation from the Oversight Forum established pursuant
+            to Article 32(1), shall:
+            (a) designate the ICT third-party service providers that are critical for financial entities, following an assessment that takes
+            into account the criteria specified in paragraph 2;
+            L 333/54 EN Official Journal of the European Union 27.12.2022
+            (b) appoint as Lead Overseer for each critical ICT third-party service provider the ESA that is responsible, in accordance
+            w...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_32">
+            <num>32</num>
+            <heading>Structure of the Oversight Framework</heading>
+            <paragraph id="art_32_par_1">
+              <num>1</num>
+              <content>
+                <p>The Joint Committee, in accordance with Article 57(1) of Regulations (EU) No 1093/2010, (EU) No 1094/2010 and
+            (EU) No 1095/2010, shall establish the Oversight Forum as a sub-committee for the purposes of supporting the work of
+            the Joint Committee and of the Lead Overseer referred to in Article 31(1), point (b), in the area of ICT third-party risk
+            across financial sectors. The Oversight Forum shall prepare the draft joint positions and the draft common acts of the Joint
+            Committee in that area.
+            L ...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_33">
+            <num>33</num>
+            <heading>Tasks of the Lead Overseer</heading>
+            <paragraph id="art_33_par_1">
+              <num>1</num>
+              <content>
+                <p>The Lead Overseer, appointed in accordance with Article 31(1), point (b), shall conduct the oversight of the assigned
+            critical ICT third-party service providers and shall be, for the purposes of all matters related to the oversight, the primary
+            point of contact for those critical ICT third-party service providers.
+            2. For the purposes of paragraph 1, the Lead Overseer shall assess whether each critical ICT third-party service provider
+            has in place comprehensive, sound and effective rules, procedu...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_34">
+            <num>34</num>
+            <heading>Operational coordination between Lead Overseers</heading>
+            <paragraph id="art_34_par_1">
+              <num>1</num>
+              <content>
+                <p>To ensure a consistent approach to oversight activities and with a view to enabling coordinated general oversight
+            strategies and cohesive operational approaches and work methodologies, the three Lead Overseers appointed in
+            accordance with Article 31(1), point (b), shall set up a JON to coordinate among themselves in the preparatory stages and
+            to coordinate the conduct of oversight activities over their respective overseen critical ICT third-party service providers, as
+            well as in the course of an...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_35">
+            <num>35</num>
+            <heading>Powers of the Lead Overseer</heading>
+            <paragraph id="art_35_par_1">
+              <num>1</num>
+              <content>
+                <p>For the purposes of carrying out the duties laid down in this Section, the Lead Overseer shall have the following
+            powers in respect of the critical ICT third-party service providers:
+            (a) to request all relevant information and documentation in accordance with Article 37;
+            (b) to conduct general investigations and inspections in accordance with Articles 38 and 39, respectively;
+            (c) to request, after the completion of the oversight activities, reports specifying the actions that have been taken or ...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_36">
+            <num>36</num>
+            <heading>Exercise of the powers of the Lead Overseer outside the Union</heading>
+            <paragraph id="art_36_par_1">
+              <num>1</num>
+              <content>
+                <p>When oversight objectives cannot be attained by means of interacting with the subsidiary set up for the purpose of
+            Article 31(12), or by exercising oversight activities on premises located in the Union, the Lead Overseer may exercise the
+            powers, referred to in the following provisions, on any premises located in a third-country which is owned, or used in any
+            way, for the purposes of providing services to Union financial entities, by a critical ICT third-party service provider, in
+            connection with...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_37">
+            <num>37</num>
+            <heading>Request for information</heading>
+            <paragraph id="art_37_par_1">
+              <num>1</num>
+              <content>
+                <p>The Lead Overseer may, by simple request or by decision, require critical ICT third-party service providers to provide
+            all information that is necessary for the Lead Overseer to carry out its duties under this Regulation, including all relevant
+            business or operational documents, contracts, policies, documentation, ICT security audit reports, ICT-related incident
+            reports, as well as any information relating to parties to whom the critical ICT third-party service provider has outsourced
+            operationa...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_38">
+            <num>38</num>
+            <heading>General investigations</heading>
+            <paragraph id="art_38_par_1">
+              <num>1</num>
+              <content>
+                <p>In order to carry out its duties under this Regulation, the Lead Overseer, assisted by the joint examination team
+            referred to in Article 40(1), may, where necessary, conduct investigations of critical ICT third-party service providers.
+            2. The Lead Overseer shall have the power to:
+            (a) examine records, data, procedures and any other material relevant to the execution of its tasks, irrespective of the
+            medium on which they are stored;
+            (b) take or obtain certified copies of, or extracts from, such r...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_39">
+            <num>39</num>
+            <heading>Inspections</heading>
+            <paragraph id="art_39_par_1">
+              <num>1</num>
+              <content>
+                <p>In order to carry out its duties under this Regulation, the Lead Overseer, assisted by the joint examination teams
+            referred to in Article 40(1), may enter in, and conduct all necessary onsite inspections on, any business premises, land or
+            property of the ICT third-party service providers, such as head offices, operation centres, secondary premises, as well as to
+            conduct off-site inspections.
+            For the purposes of exercising the powers referred to in the first subparagraph, the Lead Overseer shall ...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_40">
+            <num>40</num>
+            <heading>Ongoing oversight</heading>
+            <paragraph id="art_40_par_1">
+              <num>1</num>
+              <content>
+                <p>When conducting oversight activities, in particular general investigations or inspections, the Lead Overseer shall be
+            assisted by a joint examination team established for each critical ICT third-party service provider.
+            2. The joint examination team referred to in paragraph 1 shall be composed of staff members from:
+            (a) the ESAs;
+            (b) the relevant competent authorities supervising the financial entities to which the critical ICT third-party service
+            provider provides ICT services;
+            (c) the national ...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_41">
+            <num>41</num>
+            <heading>Harmonisation of conditions enabling the conduct of the oversight activities</heading>
+            <paragraph id="art_41_par_1">
+              <num>1</num>
+              <content>
+                <p>The ESAs shall, through the Joint Committee, develop draft regulatory technical standards to specify:
+            (a) the information to be provided by an ICT third-party service provider in the application for a voluntary request to be
+            designated as critical under Article 31(11);
+            (b) the content, structure and format of the information to be submitted, disclosed or reported by the ICT third-party
+            service providers pursuant to Article 35(1), including the template for providing information on subcontracting...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_42">
+            <num>42</num>
+            <heading>Follow-up by competent authorities</heading>
+            <paragraph id="art_42_par_1">
+              <num>1</num>
+              <content>
+                <p>Within 60 calendar days of the receipt of the recommendations issued by the Lead Overseer pursuant to Article
+            35(1), point (d), critical ICT third-party service providers shall either notify the Lead Overseer of their intention to follow
+            the recommendations or provide a reasoned explanation for not following such recommendations. The Lead Overseer
+            shall immediately transmit this information to the competent authorities of the financial entities concerned.
+            2. The Lead Overseer shall publicly disc...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_43">
+            <num>43</num>
+            <heading>Oversight fees</heading>
+            <paragraph id="art_43_par_1">
+              <num>1</num>
+              <content>
+                <p>The Lead Overseer shall, in accordance with the delegated act referred to in paragraph 2 of this Article, charge critical
+            ICT third-party service providers fees that fully cover the Lead Overseer’s necessary expenditure in relation to the conduct
+            of oversight tasks pursuant to this Regulation, including the reimbursement of any costs which may be incurred as a result
+            of work carried out by the joint examination team referred to in Article 40, as well as the costs of advice provided by the
+            indepe...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_44">
+            <num>44</num>
+            <heading>International cooperation</heading>
+            <paragraph id="art_44_par_1">
+              <num>1</num>
+              <content>
+                <p>Without prejudice to Article 36, EBA, ESMA and EIOPA may, in accordance with Article 33 of Regulations (EU)
+            No 1093/2010, (EU) No 1095/2010 and (EU) No 1094/2010, respectively, conclude administrative arrangements with
+            third-country regulatory and supervisory authorities to foster international cooperation on ICT third-party risk across
+            different financial sectors, in particular by developing best practices for the review of ICT risk management practices and
+            controls, mitigation measures and inc...</p>
+              </content>
+            </paragraph>
+          </article>
+        </section>
+      </chapter>
+      <chapter id="chp_VI">
+        <num>CHAPTER VI</num>
+        <heading>Information-sharing arrangements</heading>
+        <article id="art_45">
+          <num>45</num>
+          <heading>Information-sharing arrangements on cyber threat information and intelligence</heading>
+          <paragraph id="art_45_par_1">
+            <num>1</num>
+            <content>
+              <p>Financial entities may exchange amongst themselves cyber threat information and intelligence, including indicators of
+          compromise, tactics, techniques, and procedures, cyber security alerts and configuration tools, to the extent that such
+          information and intelligence sharing:
+          (a) aims to enhance the digital operational resilience of financial entities, in particular through raising awareness in relation
+          to cyber threats, limiting or impeding the cyber threats’ ability to spread, supporting defenc...</p>
+            </content>
+          </paragraph>
+        </article>
+      </chapter>
+      <chapter id="chp_VII">
+        <num>CHAPTER VII</num>
+        <heading>Competent authorities</heading>
+        <article id="art_46">
+          <num>46</num>
+          <heading>Competent authorities</heading>
+          <paragraph id="art_46_par_1">
+            <content>
+              <p>Without prejudice to the provisions on the Oversight Framework for critical ICT third-party service providers referred to in
+          Chapter V, Section II, of this Regulation, compliance with this Regulation shall be ensured by the following competent
+          authorities in accordance with the powers granted by the respective legal acts:
+          (a) for credit institutions and for institutions exempted pursuant to Directive 2013/36/EU, the competent authority
+          designated in accordance with Article 4 of that Directive, a...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_47">
+          <num>47</num>
+          <heading>Cooperation with structures and authorities established by Directive (EU) 2022/2555</heading>
+          <paragraph id="art_47_par_1">
+            <num>1</num>
+            <content>
+              <p>To foster cooperation and enable supervisory exchanges between the competent authorities designated under this
+          Regulation and the Cooperation Group established by Article 14 of Directive (EU) 2022/2555, the ESAs and the
+          competent authorities may participate in the activities of the Cooperation Group for matters that concern their
+          supervisory activities in relation to financial entities. The ESAs and the competent authorities may request to be invited to
+          participate in the activities of the Coope...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_48">
+          <num>48</num>
+          <heading>Cooperation between authorities</heading>
+          <paragraph id="art_48_par_1">
+            <num>1</num>
+            <content>
+              <p>Competent authorities shall cooperate closely among themselves and, where applicable, with the Lead Overseer.
+          2. Competent authorities and the Lead Overseer shall, in a timely manner, mutually exchange all relevant information
+          concerning critical ICT third-party service providers which is necessary for them to carry out their respective duties under
+          this Regulation, in particular in relation to identified risks, approaches and measures taken as part of the Lead Overseer’s
+          oversight tasks.</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_49">
+          <num>49</num>
+          <heading>Financial cross-sector exercises, communication and cooperation</heading>
+          <paragraph id="art_49_par_1">
+            <num>1</num>
+            <content>
+              <p>The ESAs, through the Joint Committee and in collaboration with competent authorities, resolution authorities as
+          referred to in Article 3 of Directive 2014/59/EU, the ECB, the Single Resolution Board as regards information relating to
+          entities falling under the scope of Regulation (EU) No 806/2014, the ESRB and ENISA, as appropriate, may establish
+          mechanisms to enable the sharing of effective practices across financial sectors to enhance situational awareness and
+          identify common cyber vulnerabil...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_50">
+          <num>50</num>
+          <heading>Administrative penalties and remedial measures</heading>
+          <paragraph id="art_50_par_1">
+            <num>1</num>
+            <content>
+              <p>Competent authorities shall have all supervisory, investigatory and sanctioning powers necessary to fulfil their duties
+          under this Regulation.
+          2. The powers referred to in paragraph 1 shall include at least the following powers to:
+          (a) have access to any document or data held in any form that the competent authority considers relevant for the
+          performance of its duties and receive or take a copy of it;
+          (b) carry out on-site inspections or investigations, which shall include but shall not be limit...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_51">
+          <num>51</num>
+          <heading>Exercise of the power to impose administrative penalties and remedial measures</heading>
+          <paragraph id="art_51_par_1">
+            <num>1</num>
+            <content>
+              <p>Competent authorities shall exercise the powers to impose administrative penalties and remedial measures referred to
+          in Article 50 in accordance with their national legal frameworks, where appropriate, as follows:
+          (a) directly;
+          (b) in collaboration with other authorities;
+          (c) under their responsibility by delegation to other authorities; or
+          (d) by application to the competent judicial authorities.
+          2. Competent authorities, when determining the type and level of an administrative penalty or remed...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_52">
+          <num>52</num>
+          <heading>Criminal penalties</heading>
+          <paragraph id="art_52_par_1">
+            <num>1</num>
+            <content>
+              <p>Member States may decide not to lay down rules for administrative penalties or remedial measures for breaches that
+          are subject to criminal penalties under their national law.
+          2. Where Member States have chosen to lay down criminal penalties for breaches of this Regulation, they shall ensure
+          that appropriate measures are in place so that competent authorities have all the necessary powers to liaise with judicial,
+          prosecuting, or criminal justice authorities within their jurisdiction to receive sp...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_53">
+          <num>53</num>
+          <heading>Notification duties</heading>
+          <paragraph id="art_53_par_1">
+            <content>
+              <p>Member States shall notify the laws, regulations and administrative provisions implementing this Chapter, including any
+          relevant criminal law provisions, to the Commission, ESMA, the EBA and EIOPA by 17 January 2025. Member States shall
+          notify the Commission, ESMA, the EBA and EIOPA without undue delay of any subsequent amendments thereto.</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_54">
+          <num>54</num>
+          <heading>Publication of administrative penalties</heading>
+          <paragraph id="art_54_par_1">
+            <num>1</num>
+            <content>
+              <p>Competent authorities shall publish on their official websites, without undue delay, any decision imposing an
+          administrative penalty against which there is no appeal after the addressee of the penalty has been notified of that decision.
+          2. The publication referred to in paragraph 1 shall include information on the type and nature of the breach, the identity
+          of the persons responsible and the penalties imposed.
+          3. Where the competent authority, following a case-by-case assessment, considers that ...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_55">
+          <num>55</num>
+          <heading>Professional secrecy</heading>
+          <paragraph id="art_55_par_1">
+            <num>1</num>
+            <content>
+              <p>Any confidential information received, exchanged or transmitted pursuant to this Regulation shall be subject to the
+          conditions of professional secrecy laid down in paragraph 2.
+          2. The obligation of professional secrecy applies to all persons who work, or who have worked, for the competent
+          authorities pursuant to this Regulation, or for any authority or market undertaking or natural or legal person to whom
+          those competent authorities have delegated their powers, including auditors and experts con...</p>
+            </content>
+          </paragraph>
+        </article>
+        <article id="art_56">
+          <num>56</num>
+          <heading>Data Protection</heading>
+          <paragraph id="art_56_par_1">
+            <num>1</num>
+            <content>
+              <p>The ESAs and the competent authorities shall be allowed to process personal data only where necessary for the
+          purpose of carrying out their respective obligations and duties pursuant to this Regulation, in particular for investigation,
+          inspection, request for information, communication, publication, evaluation, verification, assessment and drafting of
+          oversight plans. The personal data shall be processed in accordance with Regulation (EU) 2016/679 or Regulation (EU)
+          2018/1725, whichever is appli...</p>
+            </content>
+          </paragraph>
+        </article>
+      </chapter>
+      <chapter id="chp_VIII">
+        <num>CHAPTER VIII</num>
+        <heading>Delegated acts</heading>
+        <article id="art_57">
+          <num>57</num>
+          <heading>Exercise of the delegation</heading>
+          <paragraph id="art_57_par_1">
+            <num>1</num>
+            <content>
+              <p>The power to adopt delegated acts is conferred on the Commission subject to the conditions laid down in this Article.
+          2. The power to adopt delegated acts referred to in Articles 31(6) and 43(2) shall be conferred on the Commission for a
+          period of five years from 17 January 2024. The Commission shall draw up a report in respect of the delegation of power
+          not later than nine months before the end of the five-year period. The delegation of power shall be tacitly extended for
+          periods of an identica...</p>
+            </content>
+          </paragraph>
+        </article>
+      </chapter>
+      <chapter id="chp_IX">
+        <num>CHAPTER IX</num>
+        <heading>Transitional and final provisions</heading>
+        <section id="sec_IX_I">
+          <num>Section I</num>
+          <article id="art_58">
+            <num>58</num>
+            <heading>Review clause</heading>
+            <paragraph id="art_58_par_1">
+              <num>1</num>
+              <content>
+                <p>By 17 January 2028, the Commission shall, after consulting the ESAs and the ESRB, as appropriate, carry out a
+            review and submit a report to the European Parliament and the Council, accompanied, where appropriate, by a legislative
+            proposal. The review shall include at least the following:
+            (a) the criteria for the designation of critical ICT third-party service providers in accordance with Article 31(2);
+            (b) the voluntary nature of the notification of significant cyber threats referred to in Artic...</p>
+              </content>
+            </paragraph>
+          </article>
+        </section>
+        <section id="sec_IX_II">
+          <num>Section II</num>
+          <article id="art_59">
+            <num>59</num>
+            <heading>Amendments to Regulation (EC) No 1060/2009</heading>
+            <paragraph id="art_59_par_1">
+              <content>
+                <p>Regulation (EC) No 1060/2009 is amended as follows:
+            (1) in Annex I, Section A, point 4, the first subparagraph is replaced by the following:
+            ‘A credit rating agency shall have sound administrative and accounting procedures, internal control mechanisms,
+            effective procedures for risk assessment, and effective control and safeguard arrangements for managing ICT systems
+            in accordance with Regulation (EU) 2022/2554 of the European Parliament and of the Council (*).
+            _____________
+            (*) Regulation (EU) 2...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_60">
+            <num>60</num>
+            <heading>Amendments to Regulation (EU) No 648/2012</heading>
+            <paragraph id="art_60_par_1">
+              <content>
+                <p>Regulation (EU) No 648/2012 is amended as follows:
+            (1) Article 26 is amended as follows:
+            (a) paragraph 3 is replaced by the following:
+            ‘3. A CCP shall maintain and operate an organisational structure that ensures continuity and orderly
+            functioning in the performance of its services and activities. It shall employ appropriate and proportionate
+            systems, resources and procedures, including ICT systems managed in accordance with Regulation (EU) 2022/
+            2554 of the European Parliament and of the Counci...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_61">
+            <num>61</num>
+            <heading>Amendments to Regulation (EU) No 909/2014</heading>
+            <paragraph id="art_61_par_1">
+              <content>
+                <p>Article 45 of Regulation (EU) No 909/2014 is amended as follows:
+            (1) paragraph 1 is replaced by the following:
+            ‘1. A CSD shall identify sources of operational risk, both internal and external, and minimise their impact also
+            through the deployment of appropriate ICT tools, processes and policies set up and managed in accordance with
+            Regulation (EU) 2022/2554 of the European Parliament and of the Council (*), as well as through any other relevant
+            appropriate tools, controls and procedures for othe...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_62">
+            <num>62</num>
+            <heading>Amendments to Regulation (EU) No 600/2014</heading>
+            <paragraph id="art_62_par_1">
+              <content>
+                <p>Regulation (EU) No 600/2014 is amended as follows:
+            (1) Article 27g is amended as follows:
+            (a) paragraph 4 is replaced by the following:
+            ‘4. An APA shall comply with the requirements concerning the security of network and information systems set
+            out in Regulation (EU) 2022/2554 of the European Parliament and of the Council (*).
+            _____________
+            (*) Regulation (EU) 2022/2554 of the European Parliament and of the Council of 14 December 2022 on digital
+            operational resilience for the financial sector an...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_63">
+            <num>63</num>
+            <heading>Amendment to Regulation (EU) 2016/1011</heading>
+            <paragraph id="art_63_par_1">
+              <content>
+                <p>In Article 6 of Regulation (EU) 2016/1011, the following paragraph is added:
+            ‘6. For critical benchmarks, an administrator shall have sound administrative and accounting procedures, internal control
+            mechanisms, effective procedures for risk assessment, and effective control and safeguard arrangements for managing
+            ICT systems in accordance with Regulation (EU) 2022/2554 of the European Parliament and of the Council (*).
+            _____________
+            (*) Regulation (EU) 2022/2554 of the European Parliament and of...</p>
+              </content>
+            </paragraph>
+          </article>
+          <article id="art_64">
+            <num>64</num>
+            <heading>Entry into force and application</heading>
+            <paragraph id="art_64_par_1">
+              <content>
+                <p>This Regulation shall enter into force on the twentieth day following that of its publication in the Official Journal of the
+            European Union.
+            It shall apply from 17 January 2025.
+            This Regulation shall be binding in its entirety and directly applicable in all Member States.
+            Done at Strasbourg, 14 December 2022.
+            For the European Parliament For the Council
+            The President The President
+            R. METSOLA M. BEK</p>
+              </content>
+            </paragraph>
+          </article>
+        </section>
+      </chapter>
+    </body>
+  </act>
+</akomaNtoso>
