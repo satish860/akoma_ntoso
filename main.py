@@ -13,6 +13,8 @@ from src.transform.section_identifier import SectionIdentifier
 from src.transform.frbr_builder import build_frbr_metadata
 from src.transform.akn_builder import create_akoma_ntoso_root
 from src.transform.verification_integration import VerificationIntegration
+from src.transform.article_extractor import ArticleExtractor
+from src.transform.article_builder import update_hierarchical_xml_for_patterns, get_hierarchy_summary
 
 def extract_chapters_content(pdf_path: str, chapters: list) -> list:
     """
@@ -207,6 +209,142 @@ def main():
         else:
             print("   No sections to verify.\n")
 
+        # Step 5.75: Transform (T in ETL) - Extract Articles (Pattern Detection)
+        print("5.75. TRANSFORM: Extracting articles (detecting document pattern)...")
+
+        article_extractor = ArticleExtractor()
+        articles = []
+        articles_validation = {}
+
+        try:
+            if chapters and len(chapters) > 0:
+                # Pattern 1: Document has chapters
+                print("   Pattern 1 detected: Hierarchical structure (Chapters → Articles)")
+                print("   Extracting articles within chapter context...")
+
+                # Save chapters and sections to JSON for the existing method
+                import os
+                import json
+                from datetime import datetime
+                os.makedirs("output", exist_ok=True)
+
+                # Temporary JSON files for the existing method
+                temp_chapters_json = "output/temp_chapters.json"
+                temp_sections_json = "output/temp_sections.json"
+
+                # Save chapters with content using proper boundaries
+                chapters_data = []
+                # Sort chapters by start_line to calculate proper boundaries
+                sorted_chapters = sorted(chapters, key=lambda ch: ch.start_line)
+
+                for i, chapter in enumerate(sorted_chapters):
+                    # Calculate proper end line for this chapter
+                    if i + 1 < len(sorted_chapters):
+                        # End line is just before next chapter starts
+                        end_line = sorted_chapters[i + 1].start_line - 1
+                    else:
+                        # For last chapter, use a reasonable limit
+                        end_line = chapter.start_line + 2000  # Reasonable limit for last chapter
+
+                    # Get chapter content with proper boundaries
+                    chapter_content = extract_lines_range(pdf_path, chapter.start_line, end_line)
+                    chapters_data.append({
+                        "chapter_number": chapter.chapter_number,
+                        "title": chapter.title,
+                        "start_line": chapter.start_line,
+                        "content": chapter_content
+                    })
+                    print(f"     Chapter {chapter.chapter_number}: lines {chapter.start_line}-{end_line}")
+
+                with open(temp_chapters_json, 'w', encoding='utf-8') as f:
+                    json.dump({"chapters": chapters_data}, f, indent=2, ensure_ascii=False)
+
+                # Save sections
+                sections_data = []
+                for section in sections:
+                    sections_data.append({
+                        "section_number": section.section_number,
+                        "parent_chapter": section.parent_chapter,
+                        "start_line": section.start_line,
+                        "confidence": section.confidence
+                    })
+
+                with open(temp_sections_json, 'w', encoding='utf-8') as f:
+                    json.dump({"sections": sections_data}, f, indent=2, ensure_ascii=False)
+
+                # Extract articles using existing method
+                articles = article_extractor.extract_all_articles(temp_chapters_json, temp_sections_json)
+
+                # Clean up temp files
+                os.remove(temp_chapters_json)
+                os.remove(temp_sections_json)
+
+            else:
+                # Pattern 2: No chapters, extract articles directly
+                print("   Pattern 2 detected: Flat structure (Direct Articles)")
+                print("   Extracting articles directly from PDF...")
+                articles = article_extractor.extract_articles_directly(pdf_path)
+
+            # Validate articles
+            if articles:
+                articles_validation = article_extractor.validate_articles(articles)
+
+                print(f"   Articles found: {articles_validation['total_articles']}")
+                if articles_validation['chapters_with_articles']:
+                    print(f"   Chapters with articles: {', '.join(articles_validation['chapters_with_articles'])}")
+                else:
+                    print("   Articles extracted in flat structure (no chapters)")
+
+                print(f"   Articles with sections: {articles_validation['articles_with_sections']}")
+                print(f"   Articles without sections: {articles_validation['articles_without_sections']}")
+
+                if articles_validation['validation_issues']:
+                    print("   Validation issues found:")
+                    for issue in articles_validation['validation_issues']:
+                        print(f"     - {issue}")
+
+                # Save articles as JSON
+                articles_json_data = {
+                    "document": f"DORA_{metadata.number.replace('/', '_')}",
+                    "extraction_date": datetime.now().strftime("%Y-%m-%d"),
+                    "extraction_timestamp": datetime.now().isoformat(),
+                    "pattern": "hierarchical" if chapters else "flat",
+                    "articles": [
+                        {
+                            "article_number": article.article_number,
+                            "title": article.title,
+                            "start_line": article.start_line,
+                            "parent_chapter": article.parent_chapter,
+                            "parent_section": article.parent_section,
+                            "confidence": article.confidence,
+                            "has_content": bool(getattr(article, 'raw_content', None))
+                        }
+                        for article in articles
+                    ],
+                    "summary": articles_validation
+                }
+
+                articles_json_filename = f"output/DORA_{metadata.number.replace('/', '_')}_articles.json"
+                with open(articles_json_filename, 'w', encoding='utf-8') as f:
+                    json.dump(articles_json_data, f, indent=2, ensure_ascii=False)
+
+                print(f"   Articles saved to: {articles_json_filename}")
+
+                # Basic verification
+                if articles_validation['total_articles'] >= 10:  # Expect at least 10 articles
+                    print(f"   ✓ Article extraction successful: {articles_validation['total_articles']} articles")
+                else:
+                    print(f"   ⚠ Low article count: {articles_validation['total_articles']} articles")
+
+                print("   Article extraction completed.\n")
+            else:
+                print("   No articles found in document.\n")
+
+        except Exception as e:
+            print(f"   Error extracting articles: {e}")
+            print("   Continuing without article extraction...")
+            articles = []
+
         # Step 6: Transform (T in ETL) - Generate Akoma Ntoso
         print("6. TRANSFORM: Generating Akoma Ntoso XML...")
 
@@ -226,9 +364,26 @@ def main():
         # Use the generated recitals XML (already formatted)
         formatted_recitals_xml = '\n'.join('    ' + line for line in recitals_xml.split('\n') if line.strip())
 
-        # Generate chapters XML with sections
-        chapters_with_sections_xml = build_chapters_with_sections_xml(chapters, sections)
-        formatted_chapters_xml = '\n'.join('    ' + line for line in chapters_with_sections_xml.split('\n') if line.strip())
+        # Generate XML using pattern-aware builder
+        if articles:
+            # Use the new pattern-aware builder with articles
+            hierarchical_xml = update_hierarchical_xml_for_patterns(chapters, sections, articles)
+            hierarchy_summary = get_hierarchy_summary(chapters, sections, articles)
+
+            print(f"   Document structure generated:")
+            print(f"     - Pattern: {'Hierarchical' if chapters else 'Flat'}")
+            print(f"     - Chapters: {hierarchy_summary['total_chapters']}")
+            print(f"     - Sections: {hierarchy_summary['total_sections']}")
+            print(f"     - Articles: {hierarchy_summary['total_articles']}")
+            if chapters:
+                print(f"     - Articles under sections: {hierarchy_summary['articles_under_sections']}")
+                print(f"     - Articles under chapters: {hierarchy_summary['articles_under_chapters']}")
+        else:
+            # Fallback to chapters with sections only (existing behavior)
+            hierarchical_xml = build_chapters_with_sections_xml(chapters, sections)
+            print("   Generated XML with chapters and sections only (no articles)")
+
+        formatted_chapters_xml = '\n'.join('    ' + line for line in hierarchical_xml.split('\n') if line.strip())
 
         complete_xml = f'''<akomaNtoso xmlns="http://docs.oasis-open.org/legaldocml/ns/akn/3.0">
   <act name="{metadata.document_type.replace(' ', '_')}">
@@ -338,6 +493,8 @@ def main():
             }, f, indent=2)
 
         print(f"   [OK] Complete XML saved to: {xml_filename}")
+        if articles:
+            print(f"   [OK] Articles saved to: {articles_json_filename}")
         print(f"   [OK] Metadata saved to: {metadata_filename}")
         print(f"   [OK] Chapters with content saved to: {chapters_json_filename}")
         print(f"   [OK] Sections saved to: {sections_json_filename}")

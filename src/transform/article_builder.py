@@ -124,6 +124,59 @@ def build_hierarchical_xml(
 
     return '\n'.join(xml_parts)
 
+def build_articles_only_xml(articles: List[ArticleInfo]) -> str:
+    """
+    Build XML for documents with articles but no chapters (flat structure).
+
+    Args:
+        articles: List of ArticleInfo objects
+
+    Returns:
+        XML string with articles directly under body
+    """
+    if not articles:
+        return "    <body>\n      <!-- No articles found -->\n    </body>"
+
+    xml_parts = ["    <body>"]
+
+    # Sort articles by article number
+    sorted_articles = sorted(articles, key=lambda art: art.article_number)
+
+    for article in sorted_articles:
+        article_xml = build_article_xml(article)
+        # Indent article XML properly within body
+        indented_article = '\n'.join('      ' + line for line in article_xml.split('\n') if line.strip())
+        xml_parts.append(indented_article)
+
+    xml_parts.append("    </body>")
+
+    return '\n'.join(xml_parts)
+
+def update_hierarchical_xml_for_patterns(
+    chapters: List[ChapterInfo],
+    sections: List[SectionInfo],
+    articles: List[ArticleInfo]
+) -> str:
+    """
+    Updated hierarchical XML builder that handles both patterns:
+    Pattern 1: Chapters exist → use hierarchical structure
+    Pattern 2: No chapters → use flat article structure
+
+    Args:
+        chapters: List of ChapterInfo objects (may be empty)
+        sections: List[SectionInfo] objects (may be empty)
+        articles: List of ArticleInfo objects
+
+    Returns:
+        XML string with appropriate structure
+    """
+    if not chapters or len(chapters) == 0:
+        # Pattern 2: No chapters, build flat article structure
+        return build_articles_only_xml(articles)
+    else:
+        # Pattern 1: Chapters exist, use existing hierarchical structure
+        return build_hierarchical_xml(chapters, sections, articles)
+
 def build_article_xml(article: ArticleInfo) -> str:
     """
     Build XML structure for a single article with full content.
@@ -393,3 +446,56 @@ def build_chapters_with_articles_xml(chapters: List[ChapterInfo], articles: List
     xml_parts.append("    </body>")
 
     return '\n'.join(xml_parts)
+
+def build_articles_only_xml(articles: List[ArticleInfo]) -> str:
+    """
+    Build XML for documents with articles but no chapters (flat structure).
+
+    Args:
+        articles: List of ArticleInfo objects
+
+    Returns:
+        XML string with articles directly under body
+    """
+    if not articles:
+        return "    <body>\n      <!-- No articles found -->\n    </body>"
+
+    xml_parts = ["    <body>"]
+
+    # Sort articles by article number
+    sorted_articles = sorted(articles, key=lambda art: art.article_number)
+
+    for article in sorted_articles:
+        article_xml = build_article_xml(article)
+        # Indent article XML properly within body
+        indented_article = '\n'.join('      ' + line for line in article_xml.split('\n') if line.strip())
+        xml_parts.append(indented_article)
+
+    xml_parts.append("    </body>")
+
+    return '\n'.join(xml_parts)
+
+def update_hierarchical_xml_for_patterns(
+    chapters: List[ChapterInfo],
+    sections: List[SectionInfo],
+    articles: List[ArticleInfo]
+) -> str:
+    """
+    Updated hierarchical XML builder that handles both patterns:
+    Pattern 1: Chapters exist → use hierarchical structure
+    Pattern 2: No chapters → use flat article structure
+
+    Args:
+        chapters: List of ChapterInfo objects (may be empty)
+        sections: List[SectionInfo] objects (may be empty)
+        articles: List of ArticleInfo objects
+
+    Returns:
+        XML string with appropriate structure
+    """
+    if not chapters or len(chapters) == 0:
+        # Pattern 2: No chapters, build flat article structure
+        return build_articles_only_xml(articles)
+    else:
+        # Pattern 1: Chapters exist, use existing hierarchical structure
+        return build_hierarchical_xml(chapters, sections, articles)

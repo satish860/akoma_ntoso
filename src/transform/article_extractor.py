@@ -4,6 +4,7 @@ import os
 import json
 from dotenv import load_dotenv
 from typing import List, Optional, Dict
+from pydantic import BaseModel, Field
 from .models import ArticleInfo, ArticlesInChapter, SectionInfo
 
 load_dotenv()
@@ -453,3 +454,244 @@ Be very conservative - only include if you're 100% certain it's a real header.""
                 validation["validation_issues"].append(f"Chapter {chapter}: Duplicate article numbers")
 
         return validation
+
+    def extract_articles_directly(self, pdf_path: str) -> List[ArticleInfo]:
+        """
+        Extract articles directly from PDF when no chapters exist.
+        For documents with flat structure: Articles → Paragraphs.
+
+        Args:
+            pdf_path: Path to PDF file
+
+        Returns:
+            List of ArticleInfo with parent_chapter=None
+        """
+        print("=== Direct Article Extraction (No Chapters) ===")
+
+        # Load PDF content
+        from ..pdf_extractor import extract_text_with_line_numbers
+        pdf_text, _ = extract_text_with_line_numbers(pdf_path)
+
+        # Parse PDF lines
+        pdf_lines = {}
+        for line in pdf_text.split('\n'):
+            if ': ' in line:
+                parts = line.split(': ', 1)
+                try:
+                    line_num = int(parts[0])
+                    content = parts[1] if len(parts) > 1 else ""
+                    pdf_lines[line_num] = content
+                except ValueError:
+                    continue
+
+        print(f"Loaded {len(pdf_lines)} lines from PDF")
+
+        # Step 1: Find all article patterns using regex
+        print("--- Step 1: Pattern Matching for Articles ---")
+        pdf_articles = {}
+        for line_num, content in pdf_lines.items():
+            if content.strip().startswith("Article ") and len(content.strip().split()) == 2:
+                try:
+                    article_num = int(content.strip().split()[1])
+                    pdf_articles[article_num] = line_num
+                except ValueError:
+                    pass
+
+        print(f"Found {len(pdf_articles)} article patterns")
+
+        if not pdf_articles:
+            print("No articles found in PDF")
+            return []
+
+        # Step 2: Use LLM to extract titles and validate articles
+        print("--- Step 2: LLM Article Title Extraction ---")
+
+        # Get document content around articles for LLM analysis
+        document_sample = ""
+        sorted_article_lines = sorted(pdf_articles.values())
+
+        # Take a reasonable sample of the document (first 100 lines after first article)
+        if sorted_article_lines:
+            start_line = max(1, sorted_article_lines[0] - 10)
+            end_line = min(max(pdf_lines.keys()), sorted_article_lines[0] + 100)
+
+            sample_lines = []
+            for line_num in range(start_line, end_line + 1):
+                if line_num in pdf_lines:
+                    sample_lines.append(f"{line_num}: {pdf_lines[line_num]}")
+
+            document_sample = '\n'.join(sample_lines)
+
+        # Create a model for direct article extraction
+        class DirectArticlesExtraction(BaseModel):
+            articles: List[ArticleInfo] = Field(description="Articles found in the document")
+            has_articles: bool = Field(description="Whether any articles were found")
+
+        try:
+            result = self.client.chat.completions.create(
+                model=self.model,
+                response_model=DirectArticlesExtraction,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": """You are analyzing legal document text to identify ARTICLE HEADERS and their titles.
+
+CRITICAL RULES FOR ARTICLE IDENTIFICATION:
+
+✅ VALID Article Headers (INCLUDE these):
+- Line contains ONLY "Article [number]" (no other text on that line)
+- The article number is a simple integer (1, 2, 3, etc.)
+- The next line contains the article title
+- Examples of VALID headers:
+  "Article 1"
+  "Subject matter"
+
+  "Article 5"
+  "Governance and organisation"
+
+❌ INVALID Article References (EXCLUDE these):
+- "in accordance with Article X"
+- "referred to in Article X"
+- "pursuant to Article X"
+- "Article 2(1), points (a) to (d)"
+- "Article 6(4)"
+- Any line where "Article X" is part of a sentence or has parentheses
+
+PATTERN TO IDENTIFY:
+1. The line must be EXACTLY "Article [number]" with no other text
+2. The following line must be the article title
+3. Article numbers should be sequential integers
+4. Do NOT include any references to articles within sentences
+5. Do NOT include article references with subsection numbers like "Article 2(1)"
+
+IMPORTANT:
+- Only count standalone "Article N" headers, not references
+- Be very conservative - if unsure, DO NOT include it
+- Article titles are usually 2-10 words describing the article's purpose
+- Set parent_chapter to null since this is a flat document structure
+- Set start_line to the relative line position in the sample"""
+                    },
+                    {
+                        "role": "user",
+                        "content": f"""Find ONLY the actual article headers in this document sample.
+
+Document sample (flat structure, no chapters):
+
+{document_sample[:2000]}
+
+For each REAL article header found:
+1. Verify it's a standalone "Article [number]" line (no other text)
+2. Confirm the next line is a title (not part of a sentence)
+3. Check the number is a simple integer (not like "Article 2(1)")
+4. IGNORE ALL references to articles within sentences
+
+Return:
+- articles: List of articles with article_number, title, start_line (relative to sample), parent_chapter=null
+- has_articles: Whether any valid articles were found
+
+For start_line: Count line by line from the start of the sample (0-based).
+Be very conservative - only include if you're 100% certain it's a real header."""
+                    }
+                ]
+            )
+
+            print(f"LLM found {len(result.articles)} articles")
+
+            # Step 3: Merge LLM results with pattern matching results
+            print("--- Step 3: Merging LLM and Pattern Results ---")
+            final_articles = []
+
+            # Convert LLM relative positions to absolute line numbers
+            sample_start_line = sorted_article_lines[0] - 10 if sorted_article_lines else 1
+
+            for llm_article in result.articles:
+                # Find corresponding pattern match
+                article_num = llm_article.article_number
+                if article_num in pdf_articles:
+                    actual_line = pdf_articles[article_num]
+
+                    article = ArticleInfo(
+                        article_number=article_num,
+                        title=llm_article.title,
+                        start_line=actual_line,
+                        parent_chapter=None,  # No chapters in flat structure
+                        parent_section=None,
+                        confidence=90,  # High confidence for pattern + LLM match
+                        raw_content=None  # Will be filled later
+                    )
+                    final_articles.append(article)
+                    print(f"  Article {article_num}: {llm_article.title} (line {actual_line})")
+
+            # Step 4: Extract article content
+            print("--- Step 4: Extracting Article Content ---")
+            articles_with_content = self._extract_article_content_direct(final_articles, pdf_lines)
+
+            print(f"Successfully extracted {len(articles_with_content)} articles directly from PDF")
+            return articles_with_content
+
+        except Exception as e:
+            print(f"Error in LLM extraction: {e}")
+
+            # Fallback: create articles from pattern matching only
+            print("Falling back to pattern matching only...")
+            fallback_articles = []
+
+            for article_num, line_num in pdf_articles.items():
+                # Try to get title from next line
+                title = "Unknown Title"
+                if line_num + 1 in pdf_lines:
+                    next_line = pdf_lines[line_num + 1].strip()
+                    if next_line and len(next_line) < 100:  # Reasonable title length
+                        title = next_line
+
+                article = ArticleInfo(
+                    article_number=article_num,
+                    title=title,
+                    start_line=line_num,
+                    parent_chapter=None,
+                    parent_section=None,
+                    confidence=70,  # Lower confidence for pattern-only
+                    raw_content=None
+                )
+                fallback_articles.append(article)
+
+            # Extract content for fallback articles
+            articles_with_content = self._extract_article_content_direct(fallback_articles, pdf_lines)
+            print(f"Fallback extraction completed: {len(articles_with_content)} articles")
+            return articles_with_content
+
+    def _extract_article_content_direct(self, articles: List[ArticleInfo], pdf_lines: dict) -> List[ArticleInfo]:
+        """
+        Extract content for articles in a flat document structure.
+
+        Args:
+            articles: Articles to extract content for
+            pdf_lines: Dictionary mapping line numbers to content
+
+        Returns:
+            Articles with content extracted
+        """
+        print("Extracting article content for flat structure...")
+
+        # Sort articles by line number to determine boundaries
+        sorted_articles = sorted(articles, key=lambda a: a.start_line)
+
+        for i, article in enumerate(sorted_articles):
+            # Determine end line for this article
+            if i + 1 < len(sorted_articles):
+                end_line = sorted_articles[i + 1].start_line - 1
+            else:
+                end_line = max(pdf_lines.keys())  # Last article goes to end
+
+            # Extract content from start_line to end_line
+            content_lines = []
+            for line_num in range(article.start_line, end_line + 1):
+                if line_num in pdf_lines:
+                    content_lines.append(pdf_lines[line_num])
+
+            # Store content in article
+            article.raw_content = '\n'.join(content_lines)
+
+            print(f"  Article {article.article_number}: {len(content_lines)} lines of content")
+
+        return articles

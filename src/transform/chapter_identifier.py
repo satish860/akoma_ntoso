@@ -216,11 +216,21 @@ Set has_chapters to true if any chapters found, false otherwise."""
         )
 
         if chapters:
-            print(f"   Successfully found {len(chapters)} chapters")
+            print(f"   Found {len(chapters)} potential chapters, filtering false positives...")
+
+            # Filter out false positives (chapters that appear too early)
+            filtered_chapters = self._filter_false_positive_chapters(chapters)
+
+            if len(filtered_chapters) != len(chapters):
+                print(f"   Filtered out {len(chapters) - len(filtered_chapters)} false positive chapters")
+                print(f"   Valid chapters: {len(filtered_chapters)}")
+            else:
+                print(f"   All {len(chapters)} chapters validated as real")
+
+            return filtered_chapters
         else:
             print(f"   No chapters found in this document")
-
-        return chapters
+            return chapters
 
     def validate_chapter_sequence(self, chapters: List[ChapterInfo]) -> dict:
         """
@@ -249,3 +259,54 @@ Set has_chapters to true if any chapters found, false otherwise."""
             "missing_chapters": [num for num in expected_sequence if num not in chapter_numbers],
             "unexpected_chapters": [num for num in chapter_numbers if num not in expected_sequence]
         }
+
+    def _filter_false_positive_chapters(self, chapters: List[ChapterInfo]) -> List[ChapterInfo]:
+        """
+        Filter out false positive chapters that appear too early in the document.
+        Real chapters should start after preamble/recitals (typically after line 1000).
+
+        Args:
+            chapters: List of all detected chapters
+
+        Returns:
+            List of chapters with false positives filtered out
+        """
+        if not chapters:
+            return chapters
+
+        # Filter criteria:
+        # 1. Real chapters typically start after line 1000 (after preamble/recitals)
+        # 2. If we have multiple "Chapter I", keep the one that appears later
+        MIN_CHAPTER_LINE = 1000
+
+        # Group chapters by number
+        chapters_by_number = {}
+        for chapter in chapters:
+            number = chapter.chapter_number
+            if number not in chapters_by_number:
+                chapters_by_number[number] = []
+            chapters_by_number[number].append(chapter)
+
+        filtered_chapters = []
+
+        for chapter_number, chapter_list in chapters_by_number.items():
+            if len(chapter_list) == 1:
+                # Only one chapter with this number
+                chapter = chapter_list[0]
+                if chapter.start_line >= MIN_CHAPTER_LINE:
+                    filtered_chapters.append(chapter)
+                else:
+                    print(f"     Filtered out Chapter {chapter_number} at line {chapter.start_line} (too early, likely preamble)")
+            else:
+                # Multiple chapters with same number - keep the one that appears later
+                latest_chapter = max(chapter_list, key=lambda ch: ch.start_line)
+                if latest_chapter.start_line >= MIN_CHAPTER_LINE:
+                    filtered_chapters.append(latest_chapter)
+                    print(f"     Found duplicate Chapter {chapter_number}, kept the one at line {latest_chapter.start_line}")
+                else:
+                    print(f"     Filtered out all instances of Chapter {chapter_number} (all too early)")
+
+        # Sort by start_line
+        filtered_chapters.sort(key=lambda ch: ch.start_line)
+
+        return filtered_chapters

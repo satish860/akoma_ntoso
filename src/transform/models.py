@@ -65,7 +65,7 @@ class ArticleInfo(BaseModel):
     article_number: int = Field(description="Article number: 1, 2, 3, etc.")
     title: str = Field(description="Article title")
     start_line: int = Field(description="Global line number where Article appears")
-    parent_chapter: str = Field(description="Parent chapter Roman numeral: I, II, III, etc.")
+    parent_chapter: Optional[str] = Field(default=None, description="Parent chapter Roman numeral: I, II, III, etc. (if article is under a chapter)")
     parent_section: Optional[str] = Field(default=None, description="Parent section Roman numeral: I, II, III, etc. (if article is under a section)")
     confidence: int = Field(ge=0, le=100, description="LLM confidence score")
     raw_content: Optional[str] = Field(default=None, description="Raw article content from PDF")
