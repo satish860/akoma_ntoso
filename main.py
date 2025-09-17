@@ -1,5 +1,7 @@
 import sys
 import os
+import json
+from datetime import datetime
 sys.path.append('.')
 
 from src.pdf_extractor import extract_text, extract_text_with_line_numbers, extract_lines_range
@@ -91,7 +93,7 @@ def main():
 
     # Step 1: Extract (E in ETL)
     print("1. EXTRACT: Reading PDF text...")
-    pdf_path = "data/dora/level1/DORA_Regulation_EU_2022_2554.pdf"
+    pdf_path = "data/dora/level2/Commission_Implementing_Regulation_OJ_L_202501190.pdf"
     text = extract_text(pdf_path)
     print(f"   Extracted {len(text):,} characters from DORA regulation")
     print(f"   Sample: {text[:150]}...\n")
@@ -171,29 +173,44 @@ def main():
 
         # AUTOMATIC VERIFICATION: Verify chapter extraction accuracy
         print("   Verifying chapter extraction accuracy...")
-        verification_integration = VerificationIntegration(pdf_path, "DORA_2022_2554")
+        verification_integration = VerificationIntegration(pdf_path, "COMMISSION_2025_1190")
         verification_report = verification_integration.verify_and_save_chapters(chapters, chapters_with_content)
 
-        # Check if verification passed - stop pipeline if accuracy too low
-        if not verification_integration.should_proceed_with_pipeline(verification_report):
-            print("   Stopping pipeline due to low verification accuracy.")
+        # Check verification - handle Pattern 2 (no chapters) vs Pattern 1 (chapters with errors)
+        if len(chapters) == 0:
+            # Pattern 2: No chapters found (flat document structure)
+            print("   No chapters detected - Pattern 2 (flat structure) confirmed")
+            print("   Skipping chapter and section extraction, proceeding to articles\n")
+            chapters = []
+            sections = []
+        elif not verification_integration.should_proceed_with_pipeline(verification_report):
+            # Pattern 1 with errors: Chapters were found but accuracy is too low
+            print("❌ CRITICAL: Chapter accuracy is too low. Stopping pipeline.")
             return
-
-        print("   Chapter verification completed successfully!\n")
-
-        # Step 5.5: Transform (T in ETL) - Extract Sections
-        print("5.5. TRANSFORM: Extracting sections within chapters...")
-        section_identifier = SectionIdentifier()
-        sections = section_identifier.extract_sections_within_chapters(pdf_path, chapters)
-        sections_validation = section_identifier.validate_sections(sections)
-
-        print(f"   Sections found: {sections_validation['total_sections']}")
-        if sections_validation['chapters_with_sections']:
-            print(f"   Chapters with sections: {', '.join(sections_validation['chapters_with_sections'])}")
-            for chapter, section_nums in sections_validation['sections_by_chapter'].items():
-                print(f"   Chapter {chapter}: {', '.join(section_nums)}")
         else:
-            print("   No sections found in any chapters")
+            print("   Chapter verification completed successfully!\n")
+
+            # Step 5.5: Transform (T in ETL) - Extract Sections
+            print("5.5. TRANSFORM: Extracting sections within chapters...")
+            section_identifier = SectionIdentifier()
+            sections = section_identifier.extract_sections_within_chapters(pdf_path, chapters)
+            sections_validation = section_identifier.validate_sections(sections)
+
+            print(f"   Sections found: {sections_validation['total_sections']}")
+            if sections_validation['chapters_with_sections']:
+                print(f"   Chapters with sections: {', '.join(sections_validation['chapters_with_sections'])}")
+                for chapter, section_nums in sections_validation['sections_by_chapter'].items():
+                    print(f"   Chapter {chapter}: {', '.join(section_nums)}")
+            else:
+                print("   No sections found in any chapters")
+
+        # Handle section validation for Pattern 2 (no sections)
+        if len(chapters) == 0:
+            sections_validation = {
+                'total_sections': 0,
+                'chapters_with_sections': [],
+                'sections_by_chapter': {}
+            }
 
         # AUTOMATIC VERIFICATION: Verify section extraction accuracy (if sections exist)
         if sections:
@@ -223,9 +240,6 @@ def main():
                 print("   Extracting articles within chapter context...")
 
                 # Save chapters and sections to JSON for the existing method
-                import os
-                import json
-                from datetime import datetime
                 os.makedirs("output", exist_ok=True)
 
                 # Temporary JSON files for the existing method
@@ -398,9 +412,6 @@ def main():
         print("7. LOAD: Saving XML output...")
 
         # Create output directory
-        import os
-        import json
-        from datetime import datetime
         os.makedirs("output", exist_ok=True)
 
         # Save chapters with content as JSON
@@ -453,7 +464,6 @@ def main():
             f.write(complete_xml)
 
         # Save metadata as JSON for reference
-        import json
         metadata_filename = f"output/DORA_{metadata.number.replace('/', '_')}_metadata.json"
         with open(metadata_filename, 'w', encoding='utf-8') as f:
             json.dump({
