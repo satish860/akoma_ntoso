@@ -93,7 +93,7 @@ def main():
 
     # Step 1: Extract (E in ETL)
     print("1. EXTRACT: Reading PDF text...")
-    pdf_path = "data/dora/level2/Commission_Implementing_Regulation_OJ_L_202501190.pdf"
+    pdf_path = "data/dora/level1/DORA_Regulation_EU_2022_2554.pdf"
     text = extract_text(pdf_path)
     print(f"   Extracted {len(text):,} characters from DORA regulation")
     print(f"   Sample: {text[:150]}...\n")
@@ -173,7 +173,7 @@ def main():
 
         # AUTOMATIC VERIFICATION: Verify chapter extraction accuracy
         print("   Verifying chapter extraction accuracy...")
-        verification_integration = VerificationIntegration(pdf_path, "COMMISSION_2025_1190")
+        verification_integration = VerificationIntegration(pdf_path, "DORA_2022_2554")
         verification_report = verification_integration.verify_and_save_chapters(chapters, chapters_with_content)
 
         # Check verification - handle Pattern 2 (no chapters) vs Pattern 1 (chapters with errors)

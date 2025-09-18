@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, ForwardRef
 from datetime import date
 
 class DocumentMetadata(BaseModel):
@@ -69,6 +69,20 @@ class ArticleInfo(BaseModel):
     parent_section: Optional[str] = Field(default=None, description="Parent section Roman numeral: I, II, III, etc. (if article is under a section)")
     confidence: int = Field(ge=0, le=100, description="LLM confidence score")
     raw_content: Optional[str] = Field(default=None, description="Raw article content from PDF")
+    paragraphs: Optional[List['ParagraphInfo']] = Field(default=None, description="Structured paragraphs within the article")
+
+class ParagraphInfo(BaseModel):
+    """Single paragraph within an article with hierarchical structure"""
+    paragraph_number: Optional[str] = Field(default=None, description="Paragraph identifier: '1', '2', '(a)', '(b)', '(i)', '(ii)', etc.")
+    content: str = Field(description="Text content of the paragraph")
+    level: int = Field(ge=1, le=4, description="Hierarchy level: 1=main paragraph, 2=sub-paragraph (a,b,c), 3=sub-sub-paragraph (i,ii,iii), 4=points")
+    start_line: Optional[int] = Field(default=None, description="Line number where this paragraph starts")
+    sub_paragraphs: List['ParagraphInfo'] = Field(default_factory=list, description="Nested sub-paragraphs")
+    is_introductory: bool = Field(default=False, description="Whether this is introductory text (no numbering)")
+
+    class Config:
+        # Allow forward references for self-referencing models
+        arbitrary_types_allowed = True
 
 class ArticlesInChapter(BaseModel):
     """All articles found in a single chapter"""
@@ -76,5 +90,8 @@ class ArticlesInChapter(BaseModel):
     articles: List[ArticleInfo] = Field(default_factory=list, description="Articles found in this chapter")
     has_articles: bool = Field(description="Whether any articles were found")
 
+# Update ArticleInfo to include paragraphs
+ArticleInfo.model_rebuild()
 
-
+# Forward reference resolution
+ParagraphInfo.model_rebuild()

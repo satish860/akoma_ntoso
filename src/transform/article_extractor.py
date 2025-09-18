@@ -5,7 +5,8 @@ import json
 from dotenv import load_dotenv
 from typing import List, Optional, Dict
 from pydantic import BaseModel, Field
-from .models import ArticleInfo, ArticlesInChapter, SectionInfo
+from .models import ArticleInfo, ArticlesInChapter, SectionInfo, ParagraphInfo
+from .paragraph_extractor import ParagraphExtractor
 
 load_dotenv()
 
@@ -21,6 +22,9 @@ class ArticleExtractor:
             )
         )
         self.model = "openai/gpt-4o-mini"
+
+        # Initialize paragraph extractor
+        self.paragraph_extractor = ParagraphExtractor()
 
     def load_chapter_content(self, json_path: str) -> List[Dict]:
         """Load chapter content from JSON file"""
@@ -632,6 +636,21 @@ If this appears to be a reference rather than a header, mark is_valid_article as
             # Store content in article
             article.raw_content = '\n'.join(content_lines)
 
-            print(f"  Article {article.article_number}: {len(content_lines)} lines of content")
+            # Extract structured paragraphs from content
+            if article.raw_content:
+                try:
+                    paragraphs = self.paragraph_extractor.extract_paragraphs(
+                        article.raw_content,
+                        article.article_number
+                    )
+                    article.paragraphs = paragraphs
+
+                    # Get paragraph summary for logging
+                    para_summary = self.paragraph_extractor.get_paragraph_summary(paragraphs)
+                    print(f"  Article {article.article_number}: {len(content_lines)} lines of content, {para_summary['total_paragraphs']} paragraphs")
+                except Exception as e:
+                    print(f"  Article {article.article_number}: {len(content_lines)} lines of content, paragraph extraction failed: {e}")
+            else:
+                print(f"  Article {article.article_number}: {len(content_lines)} lines of content")
 
         return articles

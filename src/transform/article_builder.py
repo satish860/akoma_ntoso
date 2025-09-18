@@ -1,5 +1,5 @@
 from typing import List, Dict
-from .models import ArticleInfo, ChapterInfo, SectionInfo
+from .models import ArticleInfo, ChapterInfo, SectionInfo, ParagraphInfo
 
 def build_hierarchical_xml(
     chapters: List[ChapterInfo],
@@ -195,8 +195,13 @@ def build_article_xml(article: ArticleInfo) -> str:
         f'  <heading>{escape_xml(article.title)}</heading>'
     ]
 
-    # Parse and add article content
-    if article.raw_content:
+    # Parse and add article content (prefer structured paragraphs)
+    if hasattr(article, 'paragraphs') and article.paragraphs:
+        content_xml = parse_article_content(article.raw_content, article.article_number, article.paragraphs)
+        # Indent content properly
+        indented_content = '\n'.join('  ' + line for line in content_xml.split('\n') if line.strip())
+        xml_parts.append(indented_content)
+    elif article.raw_content:
         content_xml = parse_article_content(article.raw_content, article.article_number)
         # Indent content properly
         indented_content = '\n'.join('  ' + line for line in content_xml.split('\n') if line.strip())
@@ -208,16 +213,108 @@ def build_article_xml(article: ArticleInfo) -> str:
 
     return '\n'.join(xml_parts)
 
-def parse_article_content(raw_content: str, article_number: int) -> str:
+def parse_article_content(raw_content: str, article_number: int, paragraphs: List = None) -> str:
     """
-    Parse raw article content into structured XML paragraphs.
+    Parse article content into structured XML paragraphs.
+
+    Args:
+        raw_content: Raw text content of the article (legacy)
+        article_number: Article number for context
+        paragraphs: List of ParagraphInfo objects (preferred)
+
+    Returns:
+        XML string with structured content
+    """
+    # If we have structured paragraphs, use them
+    if paragraphs:
+        return build_paragraphs_xml(paragraphs, article_number)
+
+    # Fallback to legacy parsing if no structured paragraphs
+    return parse_article_content_legacy(raw_content, article_number)
+
+def build_paragraphs_xml(paragraphs: List, article_number: int) -> str:
+    """
+    Build XML from structured ParagraphInfo objects.
+
+    Args:
+        paragraphs: List of ParagraphInfo objects
+        article_number: Article number for ID generation
+
+    Returns:
+        XML string with hierarchical paragraph structure
+    """
+    if not paragraphs:
+        return '<!-- No content -->'
+
+    xml_parts = []
+
+    for i, paragraph in enumerate(paragraphs):
+        xml_parts.extend(build_paragraph_xml(paragraph, article_number, i + 1))
+
+    if not xml_parts:
+        xml_parts.append('<!-- No structured content found -->')
+
+    return '\n'.join(xml_parts)
+
+def build_paragraph_xml(paragraph, article_number: int, fallback_id: int) -> List[str]:
+    """
+    Build XML for a single paragraph with sub-paragraphs.
+
+    Args:
+        paragraph: ParagraphInfo object
+        article_number: Article number
+        fallback_id: Fallback ID if no paragraph number
+
+    Returns:
+        List of XML lines
+    """
+    xml_parts = []
+
+    # Generate paragraph ID
+    if paragraph.paragraph_number:
+        # Clean paragraph number for ID (remove parentheses, dots)
+        clean_num = paragraph.paragraph_number.replace('(', '').replace(')', '').replace('.', '')
+        para_id = f"art_{article_number}_par_{clean_num}"
+    else:
+        para_id = f"art_{article_number}_par_{fallback_id}"
+
+    # Start paragraph element
+    xml_parts.append(f'<paragraph id="{para_id}">')
+
+    # Add number if it exists
+    if paragraph.paragraph_number and not paragraph.is_introductory:
+        xml_parts.append(f'  <num>{escape_xml(paragraph.paragraph_number)}</num>')
+
+    # Add content
+    xml_parts.extend([
+        f'  <content>',
+        f'    <p>{escape_xml(paragraph.content)}</p>',
+        f'  </content>'
+    ])
+
+    # Add sub-paragraphs recursively
+    if paragraph.sub_paragraphs:
+        for j, sub_para in enumerate(paragraph.sub_paragraphs):
+            # Indent sub-paragraph XML
+            sub_xml = build_paragraph_xml(sub_para, article_number, j + 1)
+            indented_sub_xml = ['  ' + line for line in sub_xml]
+            xml_parts.extend(indented_sub_xml)
+
+    # Close paragraph element
+    xml_parts.append('</paragraph>')
+
+    return xml_parts
+
+def parse_article_content_legacy(raw_content: str, article_number: int) -> str:
+    """
+    Legacy paragraph parsing for backward compatibility.
 
     Args:
         raw_content: Raw text content of the article
         article_number: Article number for context
 
     Returns:
-        XML string with structured content
+        XML string with basic paragraph structure
     """
     if not raw_content:
         return '<!-- No content -->'
